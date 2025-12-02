@@ -7,6 +7,7 @@ Figma 디자인을 React/Vue 코드로 변환하는 Claude 기반 자동화 프�
 - Figma URL을 입력하면 React 또는 Vue 컴포넌트로 자동 변환
 - Vite 기반 프로젝트 자동 생성
 - 프로젝트 네이밍 규칙: `{LayerName}_{YYMMDD}_{HHMM}`
+- 생성된 프로젝트 자동 Git commit & push
 
 ## 사용법
 
