@@ -13,10 +13,17 @@ $ARGUMENTS
 
 ## Project Setup
 
+### Naming Convention
+- **Format**: `{LayerName}_{YYMMDD}_{HHMM}`
+- `{LayerName}`: Figma 레이어 이름
+- `{YYMMDD}_{HHMM}`: **현재 시간 기준** (반드시 매 실행마다 새로 생성)
+- 예시: 현재 시간이 2025년 12월 2일 17:30이면 → `Dashboard_251202_1730`
+- **중요**: 기존 폴더와 같은 이름이 있어도 **절대 재사용하지 않고** 현재 시간으로 새 폴더 생성
+
 ### 1. Initialize Vite Project
 ```bash
-mkdir {ProjectName}
-cd {ProjectName}
+mkdir {LayerName}_{YYMMDD}_{HHMM}
+cd {LayerName}_{YYMMDD}_{HHMM}
 npm create vite@latest . -- --template vue-ts
 npm install
 ```
