@@ -103,22 +103,37 @@ if ($projectDir) {
         Write-Host "Git commit failed (maybe no changes?)" -ForegroundColor Yellow
     }
 
-    # Push to remote
+    # Push to remote (push current branch to both origin and main)
     Write-Host ""
     Write-Host "Pushing to remote..." -ForegroundColor Cyan
-    git push
-    if ($LASTEXITCODE -eq 0) {
-        Write-Host "Git push: OK" -ForegroundColor Green
-        Write-Host ""
-        Write-Host "========================================" -ForegroundColor Green
-        Write-Host "Project published successfully!" -ForegroundColor Green
-        Write-Host "========================================" -ForegroundColor Green
-    } else {
-        Write-Host "Git push failed" -ForegroundColor Red
+
+    $currentBranch = git branch --show-current
+
+    # Push to current branch
+    git push origin $currentBranch
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "Git push to $currentBranch failed" -ForegroundColor Red
         Write-Host "You may need to set upstream branch:" -ForegroundColor Yellow
-        Write-Host "  git push -u origin $(git branch --show-current)" -ForegroundColor Yellow
+        Write-Host "  git push -u origin $currentBranch" -ForegroundColor Yellow
         exit 1
     }
+    Write-Host "Git push to $currentBranch : OK" -ForegroundColor Green
+
+    # Also push to main if current branch is not main
+    if ($currentBranch -ne "main") {
+        Write-Host "Syncing to main branch..." -ForegroundColor Cyan
+        git push origin ${currentBranch}:main
+        if ($LASTEXITCODE -eq 0) {
+            Write-Host "Git push to main: OK" -ForegroundColor Green
+        } else {
+            Write-Host "Git push to main failed (may need to merge first)" -ForegroundColor Yellow
+        }
+    }
+
+    Write-Host ""
+    Write-Host "========================================" -ForegroundColor Green
+    Write-Host "Project published successfully!" -ForegroundColor Green
+    Write-Host "========================================" -ForegroundColor Green
 
     # Show how to run dev server manually
     Write-Host ""
