@@ -32,6 +32,11 @@ Figma 디자인을 React/Vue 코드로 변환하는 Claude 기반 자동화 프�
 └── settings.local.json    # 로컬 설정
 ```
 
+## 전제조건
+
+- **Figma Dev Mode 계정**: Figma MCP 사용을 위해 Dev Mode가 활성화된 Figma 계정 필요
+- **Claude API Credit**: Claude Code CLI 구동을 위한 Anthropic API 크레딧 설정 필요
+
 ## 환경
 
 - Windows PowerShell
