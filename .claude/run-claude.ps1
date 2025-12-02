@@ -82,20 +82,49 @@ if ($projectDir) {
     Write-Host "Project found: $($projectDir.Name)" -ForegroundColor Magenta
     Write-Host "========================================" -ForegroundColor Magenta
 
-    # Ask user if they want to run dev server
-    $response = Read-Host "Run 'npm run dev'? (Y/n)"
+    # Git add and commit the project
+    Write-Host ""
+    Write-Host "Adding project to Git..." -ForegroundColor Cyan
 
-    if ($response -eq '' -or $response -match '^[Yy]') {
-        Write-Host ""
-        Write-Host "Starting dev server..." -ForegroundColor Cyan
-        Set-Location $projectDir.FullName
-        npm run dev
+    git add $projectDir.FullName
+    if ($LASTEXITCODE -eq 0) {
+        Write-Host "Git add: OK" -ForegroundColor Green
     } else {
-        Write-Host ""
-        Write-Host "To start manually:" -ForegroundColor Yellow
-        Write-Host "  cd $($projectDir.Name)" -ForegroundColor Yellow
-        Write-Host "  npm run dev" -ForegroundColor Yellow
+        Write-Host "Git add failed" -ForegroundColor Red
+        exit 1
     }
+
+    # Commit with project name
+    $commitMessage = "feat: add $($projectDir.Name) from Figma"
+    git commit -m $commitMessage
+    if ($LASTEXITCODE -eq 0) {
+        Write-Host "Git commit: OK" -ForegroundColor Green
+    } else {
+        Write-Host "Git commit failed (maybe no changes?)" -ForegroundColor Yellow
+    }
+
+    # Push to remote
+    Write-Host ""
+    Write-Host "Pushing to remote..." -ForegroundColor Cyan
+    git push
+    if ($LASTEXITCODE -eq 0) {
+        Write-Host "Git push: OK" -ForegroundColor Green
+        Write-Host ""
+        Write-Host "========================================" -ForegroundColor Green
+        Write-Host "Project published successfully!" -ForegroundColor Green
+        Write-Host "========================================" -ForegroundColor Green
+    } else {
+        Write-Host "Git push failed" -ForegroundColor Red
+        Write-Host "You may need to set upstream branch:" -ForegroundColor Yellow
+        Write-Host "  git push -u origin $(git branch --show-current)" -ForegroundColor Yellow
+        exit 1
+    }
+
+    # Show how to run dev server manually
+    Write-Host ""
+    Write-Host "To run dev server:" -ForegroundColor Yellow
+    Write-Host "  cd $($projectDir.Name)" -ForegroundColor Yellow
+    Write-Host "  npm run dev" -ForegroundColor Yellow
 } else {
     Write-Host ""
     Write-Host "No new project directory found" -ForegroundColor Yellow
