@@ -10,13 +10,20 @@ Figma 디자인을 React/Vue 코드로 변환하는 Claude 기반 자동화 프�
 
 ## 사용법
 
-### Figma → React
-```
-{Figma URL}을 React로 구현해줘
+### PowerShell 스크립트 실행
+
+```powershell
+# Figma → React
+.\.claude\run-claude.ps1 "Figma URL" React
+
+# Figma → Vue
+.\.claude\run-claude.ps1 "Figma URL" Vue
 ```
 
-### Figma → Vue
+### Claude Code 대화형 모드
+
 ```
+{Figma URL}을 React로 구현해줘
 {Figma URL}을 Vue로 구현해줘
 ```
 
