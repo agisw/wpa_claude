@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__figma__get_screenshot",
+      "mcp__figma__get_design_context",
+      "Bash",
+      "WebSearch",
+      "Read",
+      "Write",
+      "Edit",
+      "WebFetch"
+    ],
+    "deny": [
+      "Bash(rm -rf /)",
+      "Bash(rm -rf ~)",
+      "Read(.env)",
+      "Read(.env.*)"
+    ],
+    "ask": []
+  }
+}
