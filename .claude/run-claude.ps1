@@ -115,32 +115,16 @@ if ($projectDir) {
         Write-Host "Git commit failed (maybe no changes?)" -ForegroundColor Yellow
     }
 
-    # Push to remote (push current branch to both origin and main)
+    # Push to remote
     Write-Host ""
     Write-Host "Pushing to remote..." -ForegroundColor Cyan
 
-    $currentBranch = git branch --show-current
-
-    # Push to current branch
-    git push origin $currentBranch
+    git push
     if ($LASTEXITCODE -ne 0) {
-        Write-Host "Git push to $currentBranch failed" -ForegroundColor Red
-        Write-Host "You may need to set upstream branch:" -ForegroundColor Yellow
-        Write-Host "  git push -u origin $currentBranch" -ForegroundColor Yellow
+        Write-Host "Git push failed" -ForegroundColor Red
         exit 1
     }
-    Write-Host "Git push to $currentBranch : OK" -ForegroundColor Green
-
-    # Also push to main if current branch is not main
-    if ($currentBranch -ne "main") {
-        Write-Host "Syncing to main branch..." -ForegroundColor Cyan
-        git push origin ${currentBranch}:main
-        if ($LASTEXITCODE -eq 0) {
-            Write-Host "Git push to main: OK" -ForegroundColor Green
-        } else {
-            Write-Host "Git push to main failed (may need to merge first)" -ForegroundColor Yellow
-        }
-    }
+    Write-Host "Git push: OK" -ForegroundColor Green
 
     Write-Host ""
     Write-Host "========================================" -ForegroundColor Green
