@@ -77,6 +77,18 @@ $projectDir = Get-ChildItem -Directory | Where-Object {
 } | Sort-Object LastWriteTime -Descending | Select-Object -First 1
 
 if ($projectDir) {
+    # Rename project directory to include framework suffix
+    $frameworkSuffix = $Framework.Substring(0,1).ToUpper() + $Framework.Substring(1)  # React or Vue
+    $newProjectName = "$($projectDir.Name)_$frameworkSuffix"
+    $newProjectPath = Join-Path $projectDir.Parent.FullName $newProjectName
+
+    if ($projectDir.FullName -ne $newProjectPath) {
+        Rename-Item -Path $projectDir.FullName -NewName $newProjectName
+        $projectDir = Get-Item $newProjectPath
+        Write-Host ""
+        Write-Host "Project renamed to: $newProjectName" -ForegroundColor Cyan
+    }
+
     Write-Host ""
     Write-Host "========================================" -ForegroundColor Magenta
     Write-Host "Project found: $($projectDir.Name)" -ForegroundColor Magenta
