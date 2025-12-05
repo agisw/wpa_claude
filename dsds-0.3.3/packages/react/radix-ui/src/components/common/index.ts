@@ -1,1 +1,0 @@
-export { AnchorHeading } from "./AnchorHeading"

@@ -1,5 +1,0 @@
-export { default as Pagination } from "./Pagination.vue"
-export { default as PaginationRoot } from "./PaginationRoot.vue"
-export { default as PaginationContent } from "./PaginationContent.vue"
-export { default as PaginationNumber } from "./PaginationNumber.vue"
-export { default as PaginationDot } from "./PaginationDot.vue"

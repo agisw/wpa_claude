@@ -1,8 +1,0 @@
-@import "./variables/index.css";
-
-.dsds-pagination-content {
-  @apply flex flex-row items-center justify-center bg-white;
-  &.is-dot {
-    @apply gap-xs;
-  }
-}

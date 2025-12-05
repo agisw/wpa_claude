@@ -1,8 +1,0 @@
-- Radix-UI
-  - [ ] Select
-  - [ ] Combobox (Autocomplete)
-  - [ ] DatePicker 스타일 적용
-- Vuetify
-  - Bugs:
-    - [ ] TextField (Ghost)
-    - [ ] Toggle (Switch) On/Off 시 흔들림
