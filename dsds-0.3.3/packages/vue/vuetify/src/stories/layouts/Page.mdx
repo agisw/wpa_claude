@@ -1,0 +1,73 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks'
+
+import * as PageStories from './Page.stories'
+
+<Meta title="Layouts/Page/Overview" />
+
+# Page 레이아웃 개요
+
+`Page` 계열 컴포넌트는 DSDS 화면의 상단 구조(헤더)와 본문(Body)을 일관된 레이아웃으로 묶어 주는 최상위 컨테이너입니다. 헤더, 필터, 본문, 패널을 분리해 상태/스크롤을 제어하고, `PageFilter`나 `PagePanel` 같은 빌딩 블록과 결합해 복잡한 워크스페이스를 구성할 수 있습니다.
+
+## 핵심 역할
+
+- **레이아웃 고정**: `Page`는 전체 높이 확보를 전제로 `flex` 레이아웃을 제공하여 헤더와 본문을 명확히 분리합니다.
+- **헤더 표준화**: `PageHeader`의 `tools`, `filter`, `title-tools` 슬롯을 활용해 브레드크럼, CTA, 검색 폼을 일관된 위치에 배치합니다.
+- **본문 관리**: `PageBody`/`PageBodyTools` 조합으로 본문 상단 툴바, 스크롤, 콘텐츠 패딩을 제어합니다.
+- **패널 결합**: `Splitter`, `PagePanel`, `PageFilter`와 함께 사용하면 복잡한 분석/선택 화면을 모듈화할 수 있습니다.
+
+## 주요 구성 요소
+
+![page-anatomy](/static/images/dsds/layout-anatomy.png)
+
+| 컴포넌트 | 용도 | 주요 Props / 슬롯 |
+| --- | --- | --- |
+| `Page` | 최상위 레이아웃 컨테이너 | 기본 슬롯에 헤더/본문/패널 배치 |
+| `PageHeader` | 페이지 제목/액션 영역 | `title`, `showFavorite`, `tools`, `filter`, `title-tools` |
+| `PageHeaderFilterRow` | 헤더 내 검색 폼 레이아웃 | 기본 슬롯에 `FormField` / `FormTools` 배치 |
+| `PageBody` | 본문 콘텐츠 컨테이너 | `class`, 내부 스크롤 제어 |
+| `PageBodyTools` | 본문 보조 툴바 | 기본 슬롯, 정렬 클래스 |
+| `PagePanel` | 부가 패널 컨테이너 | `title-tools`, `tools` 슬롯 |
+| `Splitter`/`SplitterPanel` | 영역 분할 | `direction`, `defaultWidth`, `defaultSize` |
+
+> **TIP:** 레이아웃 루트에는 `h-screen` 과 `flex`를 적용해 Page의 높이 가정이 깨지지 않도록 합니다. 본문은 `overflow-hidden`, 내부 콘텐츠는 `overflow-auto`를 조합하는 것이 좋습니다.
+
+## 대표 패턴
+
+### 1. 기본 페이지 뼈대 <pageOverviewBasic />
+
+정적 정보나 문서형 화면에 적합한 가장 단순한 구성입니다.
+
+<Canvas of={PageStories.BasicStructure} />
+
+**활용 포인트**
+
+- 헤더 `tools` 슬롯을 사용해 브레드크럼이나 문서 링크를 우측 정렬합니다.
+- 본문은 카드, 설명 텍스트, 그래프 등 자유롭게 배치하되 `PageBody` 기본 패딩을 활용합니다.
+
+### 2. 헤더 필터형 대시보드 <pageOverviewFilterDashboard />
+
+검색 조건과 데이터 리스트를 한 화면에 담는 패턴입니다.
+
+<Canvas of={PageStories.FilterableDashboard} />
+
+**활용 포인트**
+
+- `PageHeaderFilterRow`에서 `FormField`와 `FormTools`를 Grid로 배치해 반응형을 손쉽게 구성합니다.
+- `PageBodyTools`로 검색 결과, 페이지당 보기 수, 정렬 옵션 등을 노출합니다.
+
+### 3. 분할 워크스페이스 <pageOverviewSplitWorkspace />
+
+분석/차트 UI처럼 좌우, 상하로 화면을 분할할 때 사용합니다.
+
+<Canvas of={PageStories.SplitWorkspace} />
+
+**활용 포인트**
+
+- `Splitter`와 `PagePanel`을 중첩해 패널별 기능을 모듈화합니다.
+- `PageFilterToolGroup`과 `PagePanelTools` 조합으로 패널 전용 툴을 정렬합니다.
+
+## 함께 보면 좋은 자료
+
+- `Layouts/Page/Patterns` — 위 패턴의 스토리 원본
+- `Layouts/Page/PageFilter` — 패널/필터 결합 시 활용 예시
+- `Layouts/Overview` — 전체 레이아웃 계층 구조와 빌딩 블록 요약

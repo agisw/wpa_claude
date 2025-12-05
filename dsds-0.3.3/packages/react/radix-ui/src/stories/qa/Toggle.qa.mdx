@@ -1,0 +1,20 @@
+import { Unstyled, Canvas, Meta, Story } from '@storybook/addon-docs/blocks';
+
+import * as Stories from "../Toggle.stories"
+
+<Meta title="QA/Doing/Toggle" />
+
+# Toggle QA 문서
+
+<Unstyled>
+  <div className="flex flex-col gap-6 min-w-[800px]">
+    <div className="flex flex-col gap-4">
+      <h2 className="typo-sss-h4-19-700 mb-1">1. Sizes </h2>
+      <Story of={Stories.Sizes} />
+    </div>
+    <div className="flex flex-col gap-4">
+      <h2 className="typo-sss-h4-19-700 mb-1">2. States</h2>
+      <Story of={Stories.DefaultStates} />
+    </div>
+  </div>
+</Unstyled>

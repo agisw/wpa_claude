@@ -1,0 +1,61 @@
+.dsds-basic-layout {
+  /*
+    아래와 같은 dsds-basic-layout 구조에서 `.dsds-page-tabs` 에 margin-left: -1px 보정
+
+    + .dsds-basic-layout
+    |-- .dsds-header
+    |-- .dsds-basic-layout-body
+        |-- .dsds-lnb
+        |-- .dsds-layout-content
+          |-- .dsds-page
+          |-- .dsds-page-tabs
+          |-- .dsds-footer
+  */
+
+  /*
+  .dsds-header { }
+  */
+  @apply flex flex-col w-full min-h-full;
+
+  .dsds-basic-layout-body {
+    @apply flex flex-1 h-[calc(100%-40px)] overflow-hidden;
+    @apply h-full w-full flex;
+
+    .lnb-root {
+      @apply z-3;
+    }
+  }
+
+  .dsds-layout-content {
+    @apply flex min-w-0 flex-1 flex-col;
+
+    .dsds-page-header-filter {
+      .dsds-page-header-filter-footer.collapsed {
+        button {
+          @apply z-1;
+        }
+      }
+    }
+
+  }
+
+  .dsds-footer {
+    @apply z-raised;
+  }
+}
+
+.dsds-form-layout {
+  .dsds-page {
+    .dsds-page-header {
+      @apply p-5 pb-4 bg-white border-b-0 h-16;
+    }
+
+    .dsds-page-body {
+      &::before {
+        content: '';
+        @apply w-full min-h-px bg-gray-200 mb-4;
+      }
+      @apply p-5 pt-0;
+    }
+  }
+}

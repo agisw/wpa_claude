@@ -1,0 +1,339 @@
+@import "./variables";
+
+:root {
+  --color-header-bg: var(--colors-neutral-neutral-04);
+  --color-header-text: var(--colors-neutral-neutral-16);
+  --color-header-button: var(--color-button-ghost-text);
+  --color-header-button-label-disabled: var(--color-text-on-box-on-box-disabled);
+  --color-header-searchbox-bg: var(--color-bg-on-box-box-default);
+  --color-header-searchbox-border: var(--color-text-box-border-default);
+  --color-header-searchbox-hover-bg: var(--color-bg-on-box-box-default);
+  --color-header-searchbox-hover-border: var(--color-text-box-border-hover);
+  --color-header-searchbox-focus-border: var(--color-text-box-border-focus);
+  --color-header-tab-active-border: var(--colors-neutral-neutral-16);
+  --color-header-menu-hover: rgba(40, 48, 55, 0.08);
+  --color-header-searchbox-disabled-bg: var(--color-bg-on-box-box-disabled);
+}
+
+.dsds-header-dark {
+  --color-header-bg: var(--colors-neutral-neutral-16);
+  --color-header-text: var(--color-text-on-button-on-brand);
+  --color-header-button: var(--color-text-on-button-on-brand);
+  --color-header-button-label-disabled: var(--color-text-text-neutral-2nd);
+  --color-header-searchbox-bg: var(--color-bg-on-ghost-box-ghost-box-on-colorbg);
+  --color-header-searchbox-border: transparent;
+  --color-header-searchbox-hover-bg: rgba(44, 48, 54, 0.6);
+  --color-header-searchbox-hover-border: transparent;
+  --color-header-searchbox-focus-border: var(--color-text-box-border-focus);
+  --color-header-tab-active-border: #ffffff;
+  --color-icon-default-1st: var(--colors-neutral-neutral-01);
+  --color-icon-default-disabled: #c9cdc0;
+  --color-icon-default-hover-bg: var(--colors-neutral-neutral-09);
+  --color-icon-default-hover-border: transparent;
+  --color-header-menu-hover: rgba(255, 255, 255, 0.08);
+  --color-bg-on-box-box-disabled: rgba(40, 48, 55, 0.32);
+  --color-text-box-border-disabled: rgba(40, 48, 55, 0.22);
+  --color-text-on-button-on-2ndary-disabled: var(--color-text-text-neutral-3rd);
+}
+
+@theme inline {
+  --color-header-bg: var(--color-header-bg);
+  --color-header-text: var(--color-header-text);
+  --color-header-button: var(--color-header-button);
+  --color-header-button-label-disabled: var(--color-header-button-label-disabled);
+  --color-header-searchbox-bg: var(--color-header-searchbox-bg);
+  --color-header-tab-active-border: var(--color-header-tab-active-border);
+  --color-header-menu-hover: var(--color-header-menu-hover);
+  --color-header-icon-hover-bg: var(--color-icon-default-hover-bg);
+}
+
+@utility typo-header-logo-title {
+  font: var(--typo-sss-h4-19-700);
+}
+
+/** DSDS Header Root */
+.dsds-header {
+  @apply bg-header-bg text-header-text elevation-header w-full;
+
+  /*
+  @media (min-width: 1920px) {
+    .dsds-header-wrapper {
+      @apply min-w-[1920px]! w-[1920px]!;
+    }
+  }
+  */
+
+  * {
+    @apply typo-sok-caption-12-400;
+  }
+
+  .dsds-header-wrapper {
+    @apply overflow-hidden w-full;
+  }
+
+  &.dsds-header-compact {
+    @apply flex h-10 items-center;
+    &>.dsds-header-wrapper {
+      @apply px-3;
+    }
+  }
+
+  &.dsds-header-cozy {
+    @apply flex h-20 items-center;
+    &>.dsds-header-wrapper {
+      @apply px-10;
+    }
+  }
+
+  &.dsds-header-with-tabs {
+    @apply flex h-18 flex-col gap-px px-3 pt-[7px] pb-3;
+    &>.dsds-header-wrapper {
+      @apply px-3;
+    }
+  }
+  &.dsds-header-sticky {
+    @apply bg-header-bg/95 supports-backdrop-filter:bg-header-bg/70 sticky -top-px z-50 backdrop-blur;
+  }
+
+  .dsds-header-menu,
+  .dsds-header-button {
+    &:disabled {
+      @apply [&_svg]:stroke-[#8d949a]!;
+      .header-button-label {
+        @apply text-[#c0c4c8];
+      }
+    }
+  }
+
+  /* GNB 영역 */
+  .dsds-header-gnb {
+    @apply flex h-10 max-h-10 min-h-10 items-center;
+
+    .dsds-header-button,
+    .dsds-header-menu {
+      @apply rounded-xs;
+    }
+
+    /* GNB 버튼은 크게 */
+    .dsds-header-menu,
+    .dsds-header-button {
+      @apply h-10!;
+
+      .header-button-label {
+        @apply typo-sok-h6-14-700;
+      }
+
+      /* GNB 에서만 Hover 시 배경색 적용 */
+      &:not(:disabled) {
+        &:hover,
+        &:focus-visible {
+          @apply bg-header-menu-hover;
+        }
+      }
+
+      &.dsds-header-tenant {
+        @apply typo-sss-h5-13-700 h-10;
+
+        .header-button-label {
+          @apply typo-sss-h5-13-700 mb-[-2px] pt-1.5;
+        }
+      }
+    }
+  }
+  /* Header Menu */
+  .dsds-header-menu {
+    @apply text-header-button flex items-center gap-1 px-1.5;
+  }
+
+  /* 우측 유틸리티 영역 */
+  .dsds-header-utility {
+    @apply flex items-center;
+    .dsds-header-menu,
+    .dsds-header-button {
+      @apply h-5;
+      @apply min-w-fit;
+    }
+
+    button:not(:disabled) {
+      .header-button-label {
+        @apply hover:underline;
+        text-underline-position: under;
+      }
+    }
+
+    /* 우측 유틸리티 클래스의 마지막 Hamberger Item 에는 왼쪽 3px margin 추가됨 */
+    & > .dsds-header-hamburger:last-child {
+      margin-left: 7px;
+    }
+  }
+
+  /* 2단모드 Tab 영역 */
+  .dsds-header-tabs {
+    @apply mt-0 flex h-7 w-full items-center;
+    & > * {
+      @apply h-full;
+
+      &:first-child {
+        padding-inline: 0px;
+        margin-right: 6px;
+      }
+    }
+  }
+
+  /* Header Divider */
+  .dsds-header-divider {
+    @apply flex h-2.5 items-center justify-center px-1;
+    & > .divider-line {
+      @apply h-2.5 min-w-px;
+    }
+  }
+
+  /* Header Button */
+  .dsds-header-button,
+  .dsds-header-menu {
+    @apply typo-button-label-small-light text-header-button rounded-0 flex h-full items-center truncate bg-transparent px-1.5 py-[3px];
+
+    &:focus-visible {
+      @apply outline-ring-inner!;
+    }
+  }
+
+  /** 라이트 테마 스타일 */
+  &.dsds-header-light {
+    /* HeaderDivider */
+    .dsds-header-divider > .divider-line {
+      background-color: var(--colors-neutral-neutral-10);
+      opacity: 0.4;
+    }
+
+    /* 탭 아이템 호버 효과 */
+    .header-tab-active {
+      &:hover {
+        background-color: rgba(40, 48, 55, 0.04);
+      }
+    }
+  }
+
+  /** 다크 테마 스타일 */
+  &.dsds-header-dark {
+    /* HeaderDivider */
+    .dsds-header-divider > .divider-line {
+      @apply bg-white opacity-20;
+    }
+
+    /* 탭 아이템 호버 효과 */
+    .header-tab-active {
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.04);
+      }
+    }
+  }
+}
+
+
+/* Header Searchbox */
+
+@utility header-searchbox-hover {
+  input::placeholder {
+    @apply underline;
+  }
+  box-shadow: inset 0 0 0 1px var(--color-header-searchbox-hover-border);
+}
+
+@utility header-searchbox-focus {
+  input::placeholder {
+    @apply underline;
+  }
+  box-shadow: inset 0 0 0 1px var(--color-header-searchbox-focus-border);
+  background-color: var(--color-header-searchbox-hover-bg);
+}
+
+@utility header-searchbox-default {
+  box-shadow: inset 0 0 0 1px var(--color-header-searchbox-border);
+}
+
+.dsds-header-searchbox {
+  @apply w-24 pr-2 pl-1;
+
+  .header-searchbox-wrapper {
+    .box-wrapper.disabled {
+      @apply cursor-not-allowed select-none;
+      input::placeholder {
+        color: var(--color-header-button-label-disabled);
+      }
+    }
+    .box-wrapper {
+      @apply header-searchbox-default;
+
+      &:not(.disabled) {
+        &:hover,
+        &:focus-within {
+          @apply header-searchbox-hover;
+        }
+
+        &:focus-within {
+          @apply header-searchbox-focus;
+        }
+
+        &:hover:not(:focus-within) {
+          background-color: var(--color-header-searchbox-hover-bg);
+        }
+      }
+    }
+
+    @apply [.box-wrapper]:bg-header-searchbox-bg;
+
+    input {
+      @apply text-header-text;
+    }
+
+    input::placeholder {
+      text-underline-offset: 2px;
+    }
+
+    input:disabled {
+      @apply pointer-events-none;
+    }
+
+    /** Vuetify Searchbox 커스텀 */
+    & > .v-input__control > .v-field {
+      @apply bg-header-searchbox-bg;
+    }
+
+    .v-field__append-inner > button.dsds-v-btn--icon-only {
+      background-color: transparent !important;
+    }
+  }
+}
+
+.header-menu-tab {
+  @apply -mt-px;
+}
+
+/* 탭 활성 상태 스타일 */
+.header-tab-active::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--color-header-tab-active-border);
+}
+
+/* 탭 영역 내의 아이템들에 대한 기본 스타일 */
+.header-tab-item {
+  position: relative;
+}
+
+.header-logo {
+  @apply typo-header-logo-title mr-2 pb-0.5;
+  /* HeaderLogo 플랫폼별 스타일 */
+  &.header-logo-macos {
+    @apply -mt-px;
+  }
+
+  &:not(.header-logo-macos) {
+    @apply pt-1.5;
+  }
+}

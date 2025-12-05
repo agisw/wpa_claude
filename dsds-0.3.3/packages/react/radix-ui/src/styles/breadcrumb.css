@@ -1,0 +1,46 @@
+@import "./variables/index.css";
+
+.dsds-breadcrumb {
+  @apply typo-caption flex flex-row items-center gap-[3px] text-[var(--color-text-on-btn-ghost-on-ghost-default)];
+
+  .dsds-breadcrumb-element {
+    @apply flex h-5 items-center gap-[3px];
+  }
+
+  .dsds-breadcrumb-select-v-wrapper {
+    @apply flex h-5 flex-row items-center;
+  }
+
+  & > .dsds-breadcrumb-element:first-child {
+    /** 첫 엘리먼트의 왼쪽 패딩 무시 */
+    .dsds-breadcrumb-link {
+      @apply pl-0;
+    }
+  }
+}
+
+.dsds-breadcrumb-text {
+  .dsds-breadcrumb-link {
+    @apply flex h-[18px] max-w-[110px] flex-row items-center rounded-xs px-1.5;
+
+    &.with-href {
+      @apply hover:cursor-pointer hover:bg-[var(--color-bg-on-ghost-box-ghost-box-hover)];
+    }
+
+    &.disabled {
+      @apply pointer-events-none text-[var(--color-text-on-btn-ghost-on-ghost-disabled)];
+    }
+
+    &:not(.disabled) {
+      @apply focus-visible:outline-ring;
+
+      &.selected {
+        @apply bg-[var(--color-bg-on-ghost-box-ghost-box-hover)];
+      }
+    }
+  }
+}
+
+.dsds-icon-breadcrumb-slash {
+  @apply flex ml-[-5px] h-[14px] w-3 px-[3px] py-px items-center justify-center;
+}

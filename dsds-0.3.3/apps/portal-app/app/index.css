@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@import "@dsds/react-radix-ui/styles.css";
+@import "./styles/markdown.css";
+
+@theme inline {
+  --font-sans: var(--font-sans);
+  --font-heading: var(--font-heading) var(--font-sans);
+  --font-mono: var(--font-mono);
+  --color-foreground: var(--color-foreground);
+  --color-background: var(--color-background);
+}
+
+@utility font-heading {
+  font-family: var(--font-heading);
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Samsung Sharp Sans";
+  font-weight: 700;
+  src: url("/fonts/SamsungSharpSans-Bold.woff") format("woff");
+}

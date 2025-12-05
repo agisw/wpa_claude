@@ -1,0 +1,143 @@
+@import "@/styles/dsds/tokens/boxes.css";
+
+.dsds-v-text-field.v-text-field {
+  * {
+    letter-spacing: 0.8px;
+  }
+
+  .v-field {
+    @apply rounded-xs typo-medium bg-white;
+    padding: 0 !important;
+    &.v-field--disabled {
+      @apply opacity-100 rounded-xs;
+      @apply bg-[var(--color-bg-on-box-box-disabled)]!;
+    }
+  }
+
+  .v-field__field {
+    padding: 0 !important;
+  }
+
+  .v-input__details {
+    display: none;
+  }
+
+  .v-field__append-inner > .dsds-icon {
+    @apply border-1 border-transparent;
+  }
+
+  /* Input field styling */
+  input.v-field__input {
+    min-height: auto !important;
+    @apply text-basic-box-text-value opacity-100;
+    @apply placeholder:text-basic-box-text-hint placeholder:opacity-100!;
+
+    &:disabled {
+      @apply text-[var(--color-text-on-button-on-2ndary-disabled)]! placeholder:text-[var(--color-text-on-button-on-2ndary-disabled)]!;
+    }
+  }
+
+  .v-field__outline__start,
+  .v-field__outline__end {
+    transition: none;
+    border-color: var(--color-text-box-border-default);
+    opacity: 1;
+  }
+
+  &:hover {
+    .v-field__outline__start,
+    .v-field__outline__end {
+      border-color: var(--color-text-box-border-hover);
+    }
+  }
+
+  .clear-button {
+    display: none;
+  }
+
+  &:focus-within {
+    .clear-button {
+      display: initial;
+    }
+    .v-field__outline__start,
+    .v-field__outline__end {
+      border-color: var(--color-text-box-border-focus);
+    }
+    .v-field__outline__start {
+      border-left-width: 1px;
+      border-top-width: 1px;
+      border-bottom-width: 1px;
+    }
+    .v-field__outline__end {
+      border-color: var(--color-text-box-border-focus);
+      border-right-width: 1px;
+      border-top-width: 1px;
+      border-bottom-width: 1px;
+    }
+  }
+
+  /* Hide default Vuetify clear icon */
+  .v-field__clearable {
+    display: none !important;
+  }
+}
+
+/* Size utilities */
+@utility dsds-v-text-field-large {
+  .v-field {
+    @apply h-7 min-h-7 pr-1;
+  }
+
+  .v-field__append-inner {
+    @apply h-7 p-px;
+  }
+
+  .v-field__input {
+    @apply py-1 px-2 pr-1 h-7;
+  }
+}
+
+@utility dsds-v-text-field-medium {
+  .v-field {
+    @apply h-6 min-h-6 pr-1;
+  }
+
+  .v-field__append-inner {
+    @apply h-6;
+  }
+
+  .v-field__input {
+    @apply py-0.5 px-2 pr-1 h-6;
+  }
+}
+
+@utility dsds-v-text-field-small {
+  .v-field {
+    @apply h-5 min-h-5 pr-1 typo-box-label-small;
+  }
+
+  .v-field__append-inner {
+    @apply h-5;
+    .v-btn {
+      @apply size-[15px]! min-w-[15px]!;
+    }
+  }
+
+  .v-field__input {
+    @apply py-0.5 px-1.5 pr-1 h-5;
+
+    input {
+      @apply typo-box-label-small;
+      align-self: unset;
+    }
+  }
+}
+
+/* Variant styles */
+.text-field-outlined {
+  /* default variant styles */
+}
+
+.text-field-ghost {
+  /* ghost variant styles */
+}

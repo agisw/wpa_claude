@@ -1,0 +1,209 @@
+table.dsds-table {
+  border-collapse: collapse;
+
+  &:not(.grid) {
+    &>thead, &>tbody {
+      &>tr>th, &>tr>td {
+        height: 23px;
+      }
+    }
+  }
+
+  &>thead, &>tbody {
+    &>tr>th, &>tr>td {
+      text-underline-offset: 2px;
+      @apply typo-sok-caption-12-400;
+      text-align: initial;
+      vertical-align: top;
+      min-height: 23px;
+      padding-inline: 6px;
+      padding-block: 4px;
+      border: 1px solid var(--color-border-border-2-outer);
+      border-bottom: 1px solid var(--color-border-border-3-inner);
+
+      &.border-x-0 { @apply border-x-0!; }
+      &.text-center { @apply text-center!; }
+
+      &.form-label {
+        @apply w-[130px] py-0 pt-0.5 align-middle;
+      }
+      &.form-field {
+        @apply align-middle py-0;
+      }
+      &.align-top {
+        @apply align-top;
+        padding-top: 8px !important;
+      }
+      & > .dsds-v-checkbox {
+        display: block;
+        text-align: center;
+        .dsds-v-checkbox-container {
+          display: inline-block !important;
+        }
+      }
+    }
+
+    &>tr>th {
+      background-color: var(--colors-neutral-neutral-02);
+      border-bottom: 1px solid var(--color-border-border-2-outer);
+    }
+  }
+
+  &.dsds-table-medium {
+    &>thead, &>tbody {
+      &>tr>th, &>tr>td {
+        height: 31px;
+        min-height: 31px;
+      }
+      &>tr>td {
+        vertical-align: middle;
+      }
+      &>tr>th {
+        @apply py-2;
+      }
+    }
+  }
+
+  &.form {
+    &>thead, &>tbody {
+      &>tr>td, &>tr>th {
+        /* Form 은 가로/세로 모두 같은 색 */
+        border-bottom: 1px solid var(--color-border-border-2-outer);
+      }
+    }
+  }
+
+  & > tbody {
+    &>tr:last-child {
+      &>th,
+      &>td {
+        border-bottom: 1px solid var(--color-border-border-2-outer);
+      }
+    }
+  }
+  border-bottom: 1px solid var(--color-border-border-2-outer);
+}
+
+/*
+  Grid table style: https://frontendengineering.substack.com/p/better-tables-with-grid-css-and-subgrid
+*/
+table.dsds-table.grid {
+  width: fit-content;
+  height: fit-content;
+  grid-auto-rows: auto;
+
+  & > thead,
+  & > thead > tr,
+  & > tbody,
+  & > tbody > tr {
+    /* 레이아웃 요소에서 제외 */
+    display: contents;
+  }
+
+  &>thead, &>tbody {
+    &>tr>th, &>tr>td {
+      border-left: none;
+      border-top: none;
+      min-height: 23px;
+
+      .v-input {
+        margin-right: 0px;
+      }
+
+      &:last-child {
+        border-right-width: 0;
+      }
+    }
+  }
+
+  &.dsds-table-medium {
+    & > thead > tr > td,
+    & > thead > tr > th,
+    & > tbody > tr > td,
+    & > tbody > tr > th {
+      @apply py-2;
+      min-height: 31px;
+      height: auto;
+    }
+
+    & > thead > tr.fluid > th,
+    & > thead > tr.fluid > td,
+    & > tbody > tr.fluid > th,
+    & > tbody > tr.fluid > td
+    {
+      height: auto;
+    }
+
+    & > thead > tr > th,
+    & > tbody > tr > th {
+      @apply py-2;
+      &:has(.v-input, button) {
+        @apply pt-1.5 pb-2;
+      }
+    }
+
+    & > thead > tr > td,
+    & > tbody > tr > td {
+      @apply typo-body pl-2 py-5px;
+
+      .dsds-form-tools .v-divider {
+        align-self: unset;
+      }
+
+      &:has(.v-input, button) {
+        @apply py-[3px];
+      }
+      &:has(.dsds-size-small) {
+        @apply py-5px;
+      }
+      &:has(.dsds-form-field-content-rows) {
+        @apply pt-2!;
+      }
+    }
+  }
+
+  border-bottom: none;
+  border-inline: 1px solid var(--color-border-border-2-outer);
+  border-top: 1px solid var(--color-border-border-2-outer);
+
+  &.border-t-0 {
+    @apply border-t-0;
+  }
+
+  &.border-b-0 {
+    tr:last-child td {
+      border-bottom-color: transparent;
+    }
+  }
+
+  &.border-x-0 {
+    border-left-width: 0px !important;
+    td:last-child {
+      border-right-width: 0px !important;
+    }
+  }
+
+  .dsds-form-tools .v-divider {
+    align-self: unset !important;
+  }
+
+  &.w-full {
+    @apply w-full;
+  }
+}
+
+.dsds-scrollable-table {
+  @apply overflow-hidden;
+}
+
+.dsds-scrollable-table-header {
+  @apply border-outer border-r-1 overflow-hidden;
+}
+
+.dsds-scrollable-table-body {
+  @apply relative flex-1 min-h-0 overflow-hidden border border-outer border-t-0 border-b-0;
+}
+
+.dsds-scrollable-table-empty {
+  @apply border border-outer border-t-0 flex flex-col items-center justify-center typo-caption text-disabled;
+}

@@ -1,0 +1,20 @@
+import { Unstyled, Canvas, Meta, Story } from '@storybook/addon-docs/blocks';
+
+import * as Stories from "../Tooltip.stories"
+
+<Meta title="QA/Doing/Tooltip" />
+
+# Tooltip QA 문서
+
+<Unstyled>
+  <div className="flex flex-col gap-6 min-w-[800px]">
+    <div className="flex flex-col gap-4">
+      <h2 className="typo-sss-h4-19-700 mb-1">1. Positions</h2>
+      <Story of={Stories.AllPositions} />
+    </div>
+    <div className="flex flex-col gap-4">
+      <h2 className="typo-sss-h4-19-700 mb-1">2. Variations</h2>
+      <Story of={Stories.ContentVariations} />
+    </div>
+  </div>
+</Unstyled>

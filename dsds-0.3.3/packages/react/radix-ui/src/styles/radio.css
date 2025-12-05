@@ -1,0 +1,59 @@
+@import "./variables/icons.css";
+
+@theme inline {
+  --color-icon-path-default: var(--colors-neutral-neutral-01);
+  --color-check-off-bg-default: var(--colors-neutral-neutral-01);
+  --color-check-off-bg-disable: var(--colors-neutral-neutral-06);
+}
+
+@utility dsds-radio-item-checked {
+  @apply bg-brand border-brand;
+}
+
+@utility dsds-radio-item-hover {
+  @apply border-check-off-hover;
+}
+
+@utility dsds-radio-item-checked-hover {
+  @apply bg-brand-hover border-brand-hover;
+}
+
+@utility dsds-radio-item-focus {
+  @apply dsds-radio-item-hover outline-ring;
+}
+
+@utility dsds-radio-item-checked-focus {
+  @apply dsds-radio-item-checked-hover outline-ring;
+}
+
+.dsds-radio {
+  &.dsds-radio-horizontal {
+    @apply flex flex-nowrap items-center gap-5;
+  }
+
+  &.dsds-radio-vertical {
+    @apply grid gap-2;
+  }
+
+  .dsds-radio-item {
+    @apply size-[14px] shrink-0 rounded-full;
+    @apply border-check-off-default bg-check-off-bg-default;
+
+    &:hover {
+      @apply dsds-radio-item-hover;
+    }
+
+    &:focus-visible {
+      @apply dsds-radio-item-focus;
+    }
+
+    &:disabled {
+      @apply bg-check-off-bg-disable cursor-not-allowed;
+    }
+
+    /* Checked state */
+    @apply data-[state=checked]:dsds-radio-item-checked;
+    @apply data-[state=checked]:not-[:disabled]:hover:dsds-radio-item-checked-hover;
+    @apply data-[state=checked]:focus-visible:dsds-radio-item-checked-focus;
+  }
+}

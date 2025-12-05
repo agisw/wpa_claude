@@ -1,0 +1,14 @@
+@import "tailwindcss";
+@import "@/styles/dsds/tokens/variables/index.css";
+
+.icon-grid {
+  @apply grid grid-cols-[repeat(auto-fill,minmax(64px,64px))] gap-3 items-center mb-8;
+}
+
+.icon-container {
+  @apply flex flex-col items-center justify-center gap-2 border rounded-sm border-[var(--color-border-light)] p-2 overflow-hidden;
+}
+
+.icon-description {
+  @apply typo-footnote h-6 text-center;
+}

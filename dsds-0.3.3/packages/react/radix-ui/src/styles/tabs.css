@@ -1,0 +1,337 @@
+@import "./button.css";
+
+@theme inline {
+  --color-tab-under: var(--color-border-border-2-outer);
+  --color-tab-under-hover: var(--colors-neutral-neutral-09);
+  --color-tab-under-active: var(--color-bg-on-shape-brand);
+  --color-tab-text: var(--color-text-text-neutral-3rd);
+  --color-tab-text-hover: var(--color-text-text-neutral-2nd);
+  --color-tab-text-active: var(--color-text-brand);
+  --color-tab-border-active: var(--color-border-border-focused-activated-hover);
+}
+
+@utility border-tab-focus {
+  & > div.label {
+    box-shadow: inset 0 0 0 1px var(--color-border-border-focused-activated-hover);
+  }
+}
+
+@utility dsds-tab-underline {
+  button[role="tab"] {
+    @apply text-tab-text focus-visible:text-tab-text-hover;
+    @apply data-[state=active]:text-tab-text-active data-[state=active]:[&>u]:bg-tab-under-active;
+    @apply focus-visible:[&>.label]:outline-ring focus-visible:[&>u]:text-tab-text-hover;
+
+    /* Hover only non-active and non-disabled tabs */
+    &:not([data-state="active"]):not(:disabled):hover {
+      @apply text-tab-text-hover;
+
+      & > u {
+        @apply bg-tab-under-hover hover:not-[:focus-visible]:[&>u]:bg-tab-under-hover;
+      }
+    }
+
+    & > .label {
+      @apply pb-3;
+    }
+
+    & > .line {
+      @apply bg-tab-under absolute bottom-px h-[3px] w-full;
+    }
+  }
+}
+
+@utility dsds-tab-underline-medium {
+  button[role="tab"] {
+    @apply pr-4 last:pr-0 [&>u]:w-[calc(100%-16px)] last:[&>u]:w-full;
+    @apply typo-sok-h6-14-700;
+  }
+}
+
+@utility dsds-tab-underline-small {
+  button[role="tab"] {
+    @apply pr-3 last:pr-0 [&>u]:w-[calc(100%-12px)] last:[&>u]:w-full;
+    @apply typo-sok-h7-12-700;
+  }
+}
+
+/* 재사용 가능한 Focus 유틸리티 클래스 */
+@utility dsds-tab-focus-ring {
+  @apply outline-ring border-button-2nd-border-hover border-1;
+  position: relative;
+  z-index: 1;
+}
+
+@utility dsds-tab-button {
+  button[role="tab"] {
+    @apply text-button-2nd-text bg-white;
+    &[data-state="active"] {
+      @apply text-button-2nd-text-selected bg-button-2nd-bg-selected;
+      border-color: var(--color-border-selected-populated);
+      & + button {
+        border-left-color: var(--color-border-selected-populated);
+      }
+    }
+    @apply border-button-2nd-border border-1 border-r-0;
+
+    &:first-child {
+      @apply rounded-l-xs;
+    }
+
+    &:last-child {
+      @apply rounded-r-xs border-r-1;
+    }
+
+    /* disabled가 아닐 때만 hover 스타일 적용 */
+    &:not(:disabled):hover {
+      @apply border-button-2nd-border-hover;
+    }
+
+    /* disabled가 아닐 때만 다음 버튼의 테두리 강조 */
+    &:not(:disabled):hover + button {
+      @apply border-l-button-2nd-border-hover;
+    }
+
+    &:focus-visible {
+      @apply dsds-tab-focus-ring;
+    }
+
+    &:focus-visible + button {
+      @apply border-l-transparent;
+    }
+  }
+}
+
+@utility dsds-tab-button-medium {
+  button[role="tab"] {
+    @apply py-px pr-2 pl-[7px];
+    @apply typo-button-label-medium-light;
+
+    &:first-child {
+      @apply pr-2;
+    }
+
+    &:last-child {
+      @apply pr-[7px];
+    }
+
+    &:focus-visible {
+      padding-right: 7px;
+    }
+  }
+}
+
+@utility dsds-tab-button-small {
+  button[role="tab"] {
+    @apply py-0.5 pr-1.5 pl-[5px];
+    @apply typo-button-label-small-light;
+
+    &:first-child {
+      @apply pr-1.5;
+    }
+
+    &:last-child {
+      @apply pr-[5px];
+    }
+
+    &:focus-visible {
+      padding-right: 5px;
+    }
+  }
+}
+
+/* QA용 상태 클래스들 - Default variant */
+@utility dsds-tab-trigger-default-hover {
+  &:not([data-state="active"]) {
+    @apply text-tab-text-hover;
+
+    & > u {
+      @apply bg-tab-under-hover;
+    }
+  }
+}
+
+@utility dsds-tab-trigger-default-focus {
+  @apply text-tab-text-hover [&>.label]:outline-ring;
+}
+
+/* QA용 상태 클래스들 - Button variant */
+@utility dsds-tab-trigger-button-hover {
+  @apply border-button-2nd-border-hover;
+
+  & + button {
+    @apply border-l-button-2nd-border-hover;
+  }
+}
+
+@utility dsds-tab-trigger-button-focus {
+  @apply dsds-tab-focus-ring;
+
+  & + button {
+    @apply border-l-transparent;
+  }
+}
+
+/* 공통 상태 클래스들 */
+@utility dsds-tab-trigger-selected {
+  @apply text-tab-text-active [&>u]:bg-tab-under-active;
+}
+
+@utility dsds-tab-trigger-disabled {
+  @apply cursor-not-allowed;
+
+  /* Default variant: 텍스트 색상만 변경, underline은 유지 */
+  color: var(--color-text-text-disabled-optional) !important;
+}
+
+/* Button variant의 disabled 상태: 컨테이너 내부의 disabled 버튼 */
+.dsds-tab-button button[role="tab"].dsds-tab-trigger-disabled {
+  color: var(--color-text-on-button-on-2ndary-disabled) !important;
+  border-color: var(--color-border-border-2-outer) !important;
+}
+
+/* 탭 컨텐트 스타일 */
+[data-slot="tabs-content"] {
+  @apply flex-1 outline-none;
+}
+
+/* 탭 컨테이너 스타일 */
+[data-slot="tabs"] {
+  @apply flex flex-col gap-2;
+}
+
+/* 탭 리스트 스타일 */
+[data-slot="tabs-list"] {
+  @apply relative inline-flex w-full items-center justify-start;
+}
+
+:root {
+  --color-tab-button-border: var(--color-border-border-2-outer);
+}
+
+.dsds-page-tabs {
+  @apply typo-caption flex items-center;
+  background-color: var(--colors-neutral-neutral-07);
+  box-shadow: inset 0 0 0 1px var(--color-border-border-2-outer);
+
+  .buttons-area {
+    @apply flex flex-1 items-center overflow-hidden;
+    .tab-button {
+      @apply min-w-40;
+    }
+    margin-right: -1px; /* 마지막 버튼의 오른쪽 테두리 겹침 방지 */
+  }
+
+  .tab-button {
+    @apply relative flex h-6 items-center select-none;
+    @apply transition-none duration-50 ease-out;
+    @apply text-neutral-3rd;
+    border: 1px solid var(--color-tab-button-border);
+
+    &:not(:last-child) {
+      border-right: none;
+    }
+
+    &:hover {
+      --color-tab-button-border: var(--colors-neutral-neutral-09);
+    }
+
+    &:hover + .tab-button {
+      border-left: 1px solid var(--colors-neutral-neutral-09);
+    }
+
+    &.active {
+      @apply text-brand bg-white;
+      font-weight: 700;
+    }
+
+    &:disabled {
+      @apply pointer-events-none text-neutral-400;
+    }
+
+    .tab-padding {
+      @apply min-w-[9px];
+    }
+
+    &.page-button {
+      @apply py-[5px] pr-[3px] pl-3;
+    }
+
+    &.control-button {
+      @apply size-6 justify-center;
+      &:hover {
+        @apply bg-button-ghost-bg-hover;
+      }
+    }
+
+    .tab-close-icon {
+      @apply ml-1 h-4 w-4 rounded-px p-0;
+      @apply opacity-0 transition-opacity duration-50 hover:bg-neutral-100;
+      @apply group-hover/tab:opacity-100 focus-visible:opacity-100;
+      @apply focus-visible:ring-1;
+    }
+  }
+
+  .padding-area {
+    @apply min-h-6;
+    border-top: 1px solid var(--color-tab-button-border);
+    border-bottom: 1px solid var(--color-tab-button-border);
+  }
+
+  .controls-area {
+    @apply flex items-center;
+  }
+
+  .page-tabs-scroll {
+    @apply flex w-full items-stretch overflow-x-auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .page-tabs-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  &.dsds-page-tabs-compact {
+    @apply h-5.5 max-h-5.5;
+    margin-left: initial;
+    background-color: var(--color-bg-surface-secondary);
+    button.tab-button {
+      @apply h-5.5 max-h-5.5;
+      min-width: initial;
+
+      &.page-button {
+        @apply px-1.5 py-[3px];
+      }
+      &.control-button {
+        @apply size-5.5;
+      }
+    }
+
+    .padding-area {
+      @apply min-h-5;
+    }
+  }
+}
+
+.dsds-tabs-container {
+  &:has(.dsds-page-tabs) {
+    @apply flex flex-col;
+  }
+  & > .dsds-page-tabs {
+    button.tab-button {
+      &.active {
+        border-bottom: none;
+        padding-bottom: 4px;
+        --color-tab-button-border: var(--color-tab-under);
+      }
+    }
+  }
+  .dsds-tabs-content {
+    @apply border-tab-under flex flex-1 border border-t-0 bg-white p-[3px];
+  }
+}
+
+.dsds-page-tabs-dropdown {
+  min-width: 180px;
+}

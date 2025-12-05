@@ -1,0 +1,53 @@
+# 설정
+
+DSDS 컴포넌트 라이브러리의 다양한 설정 옵션을 알아보세요.
+
+## 테마 설정
+
+### CSS 변수 커스터마이징
+
+```css
+:root {
+  --color-primary: #0066cc;
+  --color-secondary: #6c757d;
+  --border-radius: 8px;
+  --font-size-base: 14px;
+}
+```
+
+### Tailwind CSS 통합
+
+```javascript
+// tailwind.config.js
+module.exports = {
+  content: ["./src/**/*.{js,ts,jsx,tsx}"],
+  theme: {
+    extend: {
+      colors: {
+        primary: "var(--color-primary)",
+        secondary: "var(--color-secondary)",
+      },
+    },
+  },
+}
+```
+
+## 폰트 설정
+
+DSDS 폰트 패키지를 사용하여 일관된 타이포그래피를 적용하세요:
+
+```css
+@import "@dsds/next-fonts";
+```
+
+## 환경별 설정
+
+### 개발 환경
+```bash
+NODE_ENV=development pnpm dev
+```
+
+### 프로덕션 환경
+```bash
+NODE_ENV=production pnpm build
+```

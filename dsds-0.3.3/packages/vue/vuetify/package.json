@@ -1,0 +1,103 @@
+{
+  "name": "@dsds/vue-vuetify",
+  "type": "module",
+  "version": "0.3.3-beta",
+  "author": "김용기, 조무영 <dsds.srv@samsung.com>",
+  "description": "DS 디자인 시스템 기반의 커스텀 Vuetify 라이브러리",
+  "module": "dist/index.js",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "style": "src/index.css",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./styles": {
+      "style": "./dist/style.css",
+      "default": "./dist/style.css"
+    },
+    "./icons": {
+      "import": "./dist/icons/index.es.js",
+      "types": "./dist/icons.d.ts"
+    },
+    "./faker": {
+      "import": "./dist/faker/index.es.js",
+      "types": "./dist/faker.d.ts"
+    },
+    "./utils": {
+      "import": "./dist/utils/index.es.js",
+      "types": "./dist/utils.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "run-p type-check:build \"build-only {@}\" --",
+    "preview": "vite preview",
+    "build-only": "NODE_OPTIONS=--max-old-space-size=4096 vite build",
+    "type-check": "vue-tsc --build --force",
+    "type-check:build": "vue-tsc --build --noEmit",
+    "lint": "eslint . --fix",
+    "storybook": "BROWSER=none STORYBOOK_BASE_URL= storybook dev -p 6007",
+    "storybook-pub": "BROWSER=none STORYBOOK_BASE_URL= storybook dev -p 53000",
+    "build:storybook": "storybook build"
+  },
+  "peerDependencies": {
+    "@dsds/fonts": "workspace:^",
+    "@mdi/font": "^7.4.47",
+    "@tiptap/extension-image": "^3.4.4",
+    "@tiptap/extension-placeholder": "^3.4.4",
+    "@tiptap/starter-kit": "^3.4.3",
+    "@tiptap/vue-3": "^3.4.3",
+    "@vuepic/vue-datepicker": "^11.0.2",
+    "realgrid": "^2.9.2",
+    "shiki": "^3.13.0",
+    "vue": "~3.5.13",
+    "vue-sonner": "^2.0.8",
+    "vuetify": "~3.9.3"
+  },
+  "devDependencies": {
+    "@crazydos/vue-markdown": "^1.1.4",
+    "@storybook/addon-docs": "^10.1.2",
+    "@storybook/addon-vitest": "^10.1.2",
+    "@storybook/vue3-vite": "^10.1.2",
+    "@tailwindcss/vite": "^4.1.17",
+    "@tsconfig/node22": "^22.0.2",
+    "@types/node": "^22.18.12",
+    "@types/rollup-plugin-peer-deps-external": "^2.2.5",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "@vitest/browser": "^3.2.4",
+    "@vitest/coverage-v8": "^3.2.4",
+    "@vue/tsconfig": "^0.7.0",
+    "@wdns/vue-code-block": "^2.3.5",
+    "eslint": "^9.38.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-config-vuetify": "^4.2.0",
+    "eslint-plugin-storybook": "^10.1.2",
+    "highlight.js": "^11.11.1",
+    "markdown-it-highlightjs": "^4.2.0",
+    "npm-run-all2": "^7.0.2",
+    "playwright": "^1.56.1",
+    "remark-gfm": "^4.0.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "sass-embedded": "^1.93.2",
+    "storybook": "^10.1.2",
+    "storybook-addon-vue-mdx": "^3.0.0",
+    "tailwindcss": "^4.1.17",
+    "typescript": "~5.8.3",
+    "unplugin-vue-components": "^28.8.0",
+    "vite": "^7.1.12",
+    "vite-plugin-dts": "^4.5.4",
+    "vite-plugin-vuetify": "^2.1.2",
+    "vitest": "^3.2.4",
+    "vue-i18n": "^11.1.12",
+    "vue-markdown-render": "^2.3.0",
+    "vue-tsc": "^3.1.2"
+  },
+  "dependencies": {
+    "reka-ui": "^2.6.0"
+  }
+}

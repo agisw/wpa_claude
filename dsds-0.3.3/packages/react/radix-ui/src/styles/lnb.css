@@ -1,0 +1,223 @@
+@import "./variables";
+
+@theme inline {
+  --color-text-lnb-disabled: var(--color-border-on-box-enabled-disabled-selected);
+}
+
+.lnb-root {
+  /* LNB 애니메이션 제어를 위한 CSS 변수 */
+  --lnb-animation-duration: 0.1s;
+
+  @apply flex flex-row border-t-0 border-b-0 bg-[var(--colors-neutral-neutral-05)];
+
+  .lnb-sidebar {
+    @apply text-neutral-2nd flex max-w-[240px] min-w-[200px] flex-col;
+  }
+
+  .lnb-scroll {
+    @apply max-h-full;
+    &.with-title {
+      @apply max-h-[calc(100%-41px)];
+    }
+  }
+
+  .lnb-header {
+    .lnb-header-bar {
+      @apply flex flex-row items-center justify-between;
+      .lnb-title {
+        @apply typo-sok-h6-14-700 flex w-full items-center pr-3 pl-3;
+      }
+
+      .lnb-toggle {
+        @apply flex h-10 w-5 items-center justify-center border-l border-[var(--color-border-btn-2ndary-border-default)] hover:bg-[var(--color-bg-surface-secondary)];
+
+        .lnb-toggle-icon {
+          @apply flex w-5 items-center justify-center;
+        }
+      }
+    }
+
+    .lnb-header-divider {
+      @apply h-px shrink-0 bg-[var(--color-border-btn-2ndary-border-default)];
+    }
+  }
+
+  .lnb-resizer {
+    @apply relative mr-[-3px] ml-[-3px] w-[7px] bg-transparent;
+    .lnb-resizer-line {
+      @apply absolute top-0 left-[5px] h-full w-px -translate-x-1/2 cursor-ew-resize transition-colors duration-50;
+      @apply z-10 bg-[var(--color-border-btn-2ndary-border-default)] group-hover:bg-[var(--color-border-selected-populated)];
+    }
+    .lnb-resizer-hitarea {
+      @apply absolute top-0 left-0 z-0 h-full w-full cursor-ew-resize bg-transparent;
+    }
+  }
+
+  .data-\[state\=open\]\:animate-accordion-down {
+    &[data-state="open"] {
+      animation: accordion-down var(--lnb-animation-duration) ease-out;
+    }
+  }
+
+  .data-\[state\=closed\]\:animate-accordion-up {
+    &[data-state="closed"] {
+      animation: accordion-up var(--lnb-animation-duration) ease-out;
+    }
+  }
+
+  .lnb-accordion-content {
+    @apply overflow-hidden;
+    &[data-state="open"] {
+      animation: accordion-down var(--lnb-animation-duration) ease-out;
+    }
+    &[data-state="closed"] {
+      animation: accordion-up var(--lnb-animation-duration) ease-out;
+    }
+  }
+
+  /* 애니메이션 비활성화 상태 */
+  &[data-disable-animation="true"] {
+    .data-\[state\=open\]\:animate-accordion-down {
+      &[data-state="open"] {
+        animation: accordion-down 0 ease-out;
+      }
+    }
+
+    .data-\[state\=closed\]\:animate-accordion-up {
+      &[data-state="closed"] {
+        animation: accordion-up 0 ease-out;
+      }
+    }
+  }
+
+  [data-slot="scroll-area-viewport"] > div {
+    /* Accordion 구현에서 <div style="display: table">...</div> 로 감싸는 이슈 때문에
+     * ScrollArea 가 제대로 동작하지 않는 문제 Monkey Patch
+     */
+    display: block !important;
+  }
+}
+
+.lnb-tree {
+  @apply w-full;
+
+  .lnb-tree-icon {
+    @apply pointer-events-none mr-[3px];
+  }
+
+  .lnb-tree-item {
+    .lnb-tree-trigger {
+      @apply focus-visible:outline-ring-inner flex w-full items-center pr-[7px] text-left [&_svg]:rotate-90 [&[data-state=open]_svg]:rotate-180;
+      @apply typo-sok-h7-12-700 h-[26px];
+
+      &.lnb-tree-trigger-root {
+        @apply h-8;
+      }
+      &.lnb-tree-trigger-nested {
+        @apply typo-sok-caption-12-400 text-[var(--colors-neutral-neutral-17)];
+      }
+      &.lnb-tree-trigger-disabled {
+        @apply pointer-events-none text-[var(--color-text-text-disabled-optional)] [&_svg]:stroke-[var(--color-text-text-disabled-optional)];
+      }
+    }
+  }
+  .lnb-tree-divider {
+    @apply h-px w-full bg-[var(--color-border-btn-2ndary-border-default)];
+  }
+}
+
+.lnb-item {
+  @apply typo-sok-caption-12-400 relative flex h-[26px] w-full items-center pr-5 hover:bg-[var(--colors-neutral-neutral-03)];
+  @apply focus-visible:outline-ring-inner focus-visible:bg-[var(--color-bg-surface-secondary)];
+
+  &.lnb-item-selected {
+    @apply bg-background typo-sok-h7-12-700 text-[var(--color-text-on-button-on-brand-selected)];
+  }
+  &.lnb-item-disabled {
+    @apply pointer-events-none text-[var(--color-text-text-disabled-optional)] [&_svg]:stroke-[var(--color-text-text-disabled-optional)];
+  }
+  &:not(.lnb-item-disabled) {
+    @apply focus-visible:outline-ring-inner focus-visible:bg-[var(--color-bg-surface-secondary)];
+  }
+
+  .lnb-item-active-indicator {
+    @apply absolute left-0 h-[26px] w-[3px] bg-[var(--color-bg-on-button-brand-default)];
+  }
+
+  .lnb-item-bullet {
+    @apply mr-[3px] flex w-[14px] flex-shrink-0 justify-center;
+    & > .lnb-item-bullet-icon {
+      @apply flex w-[14px] justify-center;
+    }
+  }
+
+  .lnb-item-bullet-placeholder {
+    @apply flex h-full w-3 flex-shrink-0;
+  }
+
+  .lnb-item-label {
+    @apply w-fit truncate;
+  }
+}
+
+.lnb-accordion-item {
+  .lnb-accordion-title {
+    @apply flex h-[39px] flex-col;
+
+    .lnb-accordion-trigger {
+      @apply typo-sok-h7-12-700 flex h-10 flex-1 items-center justify-between pr-[7px] pl-3 text-left;
+      @apply [&[data-state=closed]_svg]:rotate-180;
+      &[data-disabled="true"] {
+        @apply pointer-events-none text-[var(--color-text-lnb-disabled)] [&_svg]:stroke-[var(--color-text-lnb-disabled)];
+      }
+      &:not([data-disabled="true"]) {
+        @apply focus-visible:outline-ring-inner;
+      }
+      &.is-disabled {
+        @apply pointer-events-none text-[var(--color-text-lnb-disabled)] [&_svg]:stroke-[var(--color-text-lnb-disabled)];
+      }
+      &:not(.is-disabled) {
+        @apply focus-visible:outline-ring-inner;
+      }
+    }
+  }
+}
+
+.lnb-divider {
+  @apply h-px bg-[var(--color-border-btn-2ndary-border-default)];
+}
+
+.lnb-collapsed {
+  @apply z-50 h-auto;
+  .lnb-collapsed-button {
+    @apply absolute flex h-[41px] w-[15px] items-center justify-center border-r border-b border-[var(--color-border-btn-2ndary-border-default)] bg-[var(--colors-neutral-neutral-05)] hover:bg-[var(--color-bg-surface-secondary)];
+    .lnb-collapsed-icon {
+      @apply flex w-[14px] items-center justify-center;
+    }
+  }
+
+  .lnb-collapsed-track {
+    @apply h-full w-1 bg-[var(--colors-neutral-neutral-05)] transition-colors duration-50;
+    border-right: 1px solid var(--color-border-btn-2ndary-border-default);
+  }
+}
+
+.lnb-title-tabs {
+  [role="lnb-title"] {
+    padding-inline: 0px !important;
+  }
+
+  [data-slot="tabs"] {
+    @apply typo-sok-h6-14-700 mt-2 flex-1 gap-0;
+    [data-slot="tabs-list"] {
+      button[role="tab"] {
+        @apply mb-[-3.5px] h-8 w-full flex-1 items-center justify-center px-0!;
+        @apply [&>u]:!w-full;
+      }
+    }
+  }
+}
+
+@utility lnb-with-header {
+  @apply z-raised border-t-1 border-[#cfd1d2];
+}

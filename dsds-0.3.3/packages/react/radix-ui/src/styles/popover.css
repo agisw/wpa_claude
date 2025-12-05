@@ -1,0 +1,44 @@
+@import "tw-animate-css";
+@import "./variables";
+
+@theme inline {
+  --color-popover: var(--color-bg-surface-primary);
+  --color-popover-foreground: var(--colors-neutral-neutral-17);
+}
+
+.dsds-popover-container {
+  /* 레이아웃 및 모양 */
+  @apply fixed z-100 min-h-[320px] w-[380px] origin-(--radix-popover-content-transform-origin) rounded-sm pt-4 pr-4 pb-5 pl-5 outline-hidden;
+  /* 배경 및 텍스트 색상 */
+  @apply bg-background typo-sok-body-14-400 text-[var(--colors-neutral-neutral-17)];
+  /* 그림자 */
+  @apply shadow-md;
+
+  &[data-state="open"] {
+    @apply animate-in fade-in-0 duration-100;
+  }
+
+  &[data-state="close"] {
+    @apply animate-out fade-out-0 opacity-0 duration-100;
+  }
+
+  .dsds-popover-header {
+    @apply mb-4 flex h-5 place-content-between items-center;
+
+    .dsds-popover-button {
+      @apply focus-visible:outline-ring rounded-xs p-0.5 hover:bg-[var(--color-bg-on-ghost-button-ghostbtn-hover)] focus:bg-[var(--color-bg-on-ghost-button-ghostbtn-hover)];
+    }
+  }
+
+  .dsds-popover-divider {
+    @apply mr-[-16px] ml-[-20px] border-t border-[var(--color-border-border-3-inner)];
+  }
+
+  .dsds-popover-content {
+    @apply mt-4 max-h-[226px] overflow-auto;
+  }
+}
+
+.dsds-toggletip {
+  @apply text-[var(--colors-neutral-neutral-15)];
+}

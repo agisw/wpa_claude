@@ -1,0 +1,301 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+import { Card } from "@docs/helpers/vue";
+import { version } from "../../../package.json";
+
+<Meta title="Home" />
+
+<div className="flex flex-col items-center pb-10">
+  <img src="/images/dsds-logo.png" alt="DSDS 로고" className="size-30 -ml-20px mb-2" />
+<div className="flex flex-col items-center">
+    <p className="flex items-center gap-1 font-heading font-bold text-center sb-unstyled text-4xl">
+      <span className="text-brand">DSDS</span>
+      <small className="text-neutral-3rd mt-[-4px] text-nowrap">(DS Design System)</small>
+      <span className="text-neutral-1st px-1">/</span>
+      <span className="text-nowrap">Vuetify <small className="text-neutral-3rd">for</small> <span className="text-neutral-1st">Vue3</span></span>
+    </p>
+    <p className="font-sans text-center sb-unstyled text-2xl text-neutral-1st">
+      <span className="font-heading">Vuetify</span> 를 <span className="font-heading">DSDS</span>에 맞게 커스터마이징한 컴포넌트 및 예제코드를 제공합니다.
+    </p>
+  </div>
+  <p>
+    <span class="text-xl font-normal">최신 릴리즈: <span class="font-semibold">{ version }</span></span>
+  </p>
+  <blockquote>
+    v0.3.3-beta에서는 Dialog 네이밍을 전면 Modal 패턴으로 교체하고 ECM/RMS/PEMS 모달 플로우를 재정비했습니다. 요청되었던 LNB 접힘 트랙 개선과 함께 VBtn 로딩 스피너, VCheckbox change 이벤트, ScrollableTable 행 높이를 다듬어 문서·예제가 더 실사용에 가깝습니다.
+  </blockquote>
+</div>
+
+# 시작하기
+
+**@dsds/vue-vuetify**는 삼성전자 DS 디자인 시스템을 기반으로 Vuetify 3를 확장한 Vue 3 컴포넌트 라이브러리입니다.
+기존 Vuetify 사용자들이 쉽게 마이그레이션할 수 있도록 API 호환성을 유지하면서 DSDS 디자인 가이드를 완전히 통합했습니다.
+
+## 시스템 요구 사항
+
+- Vue 3.5 이상
+- Vuetify 3.9 (3.10 사용 불가)
+- TypeScript 5.8 이상
+
+## 🚀 빠른 시작
+
+### 1. 설치
+
+```bash
+npm install @dsds/vue-vuetify @dsds/fonts
+```
+
+<div className="sb-unstyled my-4">
+  <Card href="/?path=/docs/getting-started-installation--docs" description="상세한 설치 및 설정 가이드 보기">
+    📚 상세 설치 가이드
+  </Card>
+</div>
+
+### 2. Vue 앱 설정
+
+```typescript
+// main.ts
+import { createApp } from 'vue'
+import { createVuetify } from 'vuetify'
+import { createDSDSVuetify } from '@dsds/vue-vuetify'
+import '@dsds/vue-vuetify/styles'
+
+const app = createApp(App)
+const vuetify = createVuetify()
+const dsdsVuetify = createDSDSVuetify()
+
+app.use(vuetify)
+app.use(dsdsVuetify)
+```
+
+### 3. 컴포넌트 사용
+
+```html
+<template>
+  <div>
+    <VBtn color="primary">DSDS 버튼</VBtn>
+    <VTextField label="이름" v-model="name" />
+  </div>
+</template>
+
+<script setup>
+import { VBtn, VTextField } from '@dsds/vue-vuetify'
+</script>
+```
+
+## 📦 포함된 컴포넌트
+
+### 핵심 폼 컴포넌트
+<div className="sb-unstyled my-6 gap-3 flex flex-row flex-wrap">
+  <Card href="/?path=/docs/components-button--docs" description="다양한 스타일과 크기의 버튼">
+    VBtn
+  </Card>
+  <Card href="/?path=/docs/components-textfield--docs" description="텍스트 입력 필드">
+    VTextField
+  </Card>
+  <Card href="/?path=/docs/components-select--docs" description="드롭다운 선택">
+    VSelect
+  </Card>
+  <Card href="/?path=/docs/components-checkbox--docs" description="체크박스">
+    VCheckbox
+  </Card>
+  <Card href="/?path=/docs/components-autocomplete--docs" description="자동완성 입력">
+    VAutocomplete
+  </Card>
+</div>
+
+### 폼 & 입력 컴포넌트 추가
+<div className="sb-unstyled my-6 gap-3 flex flex-row flex-wrap">
+  <Card href="/?path=/docs/components-switch-toggle--docs" description="토글 스위치 입력">
+    Toggle (VSwitch)
+  </Card>
+  <Card href="/?path=/docs/components-rating--docs" description="별점 평가 입력">
+    VRating
+  </Card>
+</div>
+
+### 레이아웃 & 내비게이션
+<div className="sb-unstyled my-6 gap-3 flex flex-row flex-wrap">
+  <Card href="/?path=/story/components-tabs--docs" description="탭 기반 내비게이션">
+    VTabs
+  </Card>
+  <Card href="/?path=/story/components-dropdownmenu--docs" description="헤더 및 컨텍스트 액션 드롭다운">
+    DropdownMenu
+  </Card>
+  <Card href="/?path=/story/components-popover--docs" description="컨텍스트 정보를 제공하는 팝오버">
+    Popover
+  </Card>
+  <Card href="/?path=/story/components-toggletip--docs" description="포커스/호버에 반응하는 토글 팁">
+    Toggletip
+  </Card>
+  <Card href="/?path=/docs/components-modal--docs" description="모달 다이얼로그">
+    Modal
+  </Card>
+  <Card href="/?path=/docs/components-tooltip--docs" description="툴팁">
+    VTooltip
+  </Card>
+</div>
+
+### 페이지 구조 & 내비게이션 확장
+
+<div className="sb-unstyled my-6 gap-3 flex flex-row flex-wrap">
+  <Card href="/?path=/story/layouts-footer--docs" description="브랜드 푸터 및 하위 컴포넌트">
+    Footer
+  </Card>
+  <Card href="/?path=/story/layouts-lnb--docs" description="아코디언/트리 기반 좌측 내비게이션">
+    LNB
+  </Card>
+  <Card href="/?path=/story/layouts-header--docs" description="Searchbox 및 메뉴 통합 헤더">
+    Header
+  </Card>
+  <Card href="/?path=/story/layouts-page--docs" description="Page 컨테이너와 본문·패널 구성">
+    Page
+  </Card>
+  <Card href="/?path=/story/layouts-pagefilter--docs" description="필터/툴바를 재사용하는 PageFilter 세트">
+    PageFilter
+  </Card>
+  <Card href="/?path=/story/layouts-pagetabs--docs" description="옵션 대화상자와 확인 흐름을 갖춘 워크플로 탭">
+    PageTabs
+  </Card>
+  <Card href="/?path=/story/layouts-splitter--docs" description="윈도우 분할 및 리사이징 기능">
+    Splitter
+  </Card>
+</div>
+
+> 📌 LNB는 0.3.3-beta에서 접힘 트랙이 1px 가이드로 단순화되고 PageTabs와 selection 이벤트를 함께 다루도록 BasicLayout 데모가 보강되었습니다.
+
+> 새롭게 정리된 **LayoutOverview** 문서에서 Page, PageFilter, Form 구성 요소를 한 번에 학습하고 샘플 워크플로를 탐색할 수 있습니다.
+
+### 피드백 & 표시
+<div className="sb-unstyled my-6 gap-3 flex flex-row flex-wrap">
+  <Card href="/?path=/docs/components-badge--docs" description="알림, 개수, 텍스트 배지">
+    Badge
+  </Card>
+  <Card href="/?path=/docs/components-tag--docs" description="콘텐츠 분류 태그">
+    Tag
+  </Card>
+  <Card href="/?path=/docs/components-toast--docs" description="토스트 알림">
+    Toast
+  </Card>
+  <Card href="/?path=/docs/components-loader--docs" description="풀스크린 로딩 오버레이">
+    Loader
+  </Card>
+</div>
+
+### 고급 컴포넌트
+<div className="sb-unstyled my-6 gap-3 flex flex-row flex-wrap">
+  <Card href="/?path=/docs/components-richtexteditor--docs" description="리치 텍스트 편집기">
+    RichTextEditor
+  </Card>
+  <Card href="/?path=/docs/components-vuedatepicker--docs" description="날짜 선택기">
+    VueDatePicker
+  </Card>
+  <Card href="/?path=/docs/components-realgrid--docs" description="고성능 데이터 그리드">
+    RealGrid
+  </Card>
+</div>
+
+### 데이터 테이블 & 워크플로
+
+<div className="sb-unstyled my-6 gap-3 flex flex-row flex-wrap">
+  <Card href="/?path=/story/examples-eco-highway--gpm-modal" description="ScrollableTable과 GPM 비교 테이블 예제">
+    ScrollableTable
+  </Card>
+  <Card href="/?path=/story/examples-eco-highway--dashboard-layout" description="RMS/GPM 모달과 컬럼 설정을 포함한 실무 흐름">
+    ECO Highway Examples
+  </Card>
+  <Card href="/?path=/story/examples-ees-ui-alarmsummary--basic-layout" description="Splitter·Loader·RealGrid가 결합된 Alarm Summary 페이지">
+    EES Alarm Summary
+  </Card>
+</div>
+
+> 추가 툴링: Storybook 문서는 Vue Markdown 렌더러와 코드 블록 하이라이팅(Shiki)을 활용해 풍부한 예제를 제공합니다.
+
+## 🎨 스타일링 & 테마
+
+### 지원되는 테마
+- **Light 테마**: 기본적으로 지원되는 밝은 테마
+- **Compact 밀도**: 컴팩트한 컴포넌트 밀도 지원
+- **Dark 테마**: 2026년 하반기 지원 예정
+
+### DSDS 디자인 토큰
+모든 컴포넌트는 DSDS 디자인 토큰을 기반으로 스타일링됩니다:
+
+```css
+/* CSS 변수로 정의된 디자인 토큰 */
+--color-primary: #007acc;
+--color-success: #00c853;
+--color-error: #ff4444;
+--color-warning: #ff9800;
+--color-info: #2196f3;
+
+/* 반응형 스페이싱 */
+--space-xs: 0.25rem;
+--space-sm: 0.5rem;
+--space-md: 1rem;
+--space-lg: 1.5rem;
+```
+
+### TailwindCSS 통합
+TailwindCSS 클래스를 컴포넌트와 함께 사용할 수 있습니다:
+
+```html
+<template>
+  <!-- TailwindCSS 클래스와 DSDS 컴포넌트 혼용 -->
+  <div class="p-4 bg-gray-100 rounded-lg">
+    <VBtn class="w-full mb-4" color="primary">
+      전체 너비 버튼
+    </VBtn>
+    <VTextField class="max-w-sm" label="이름" />
+  </div>
+</template>
+```
+
+## 🔧 개발 가이드
+
+### TypeScript 지원
+완전한 TypeScript 지원으로 타입 안전성을 보장합니다:
+
+```typescript
+<script setup lang="ts">
+import type { VBtnProps } from '@dsds/vue-vuetify'
+
+interface Props {
+  loading?: boolean
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  loading: false
+})
+</script>
+```
+
+### 접근성 (A11y)
+모든 컴포넌트는 WCAG 2.1 AA 표준을 준수합니다:
+- ARIA 속성 자동 적용
+- 키보드 네비게이션 지원
+- 스크린 리더 호환성
+
+### 반응형 디자인
+DSDS는 현재 **데스크탑 환경에 최적화**되어 있으며, 반응형 디자인을 제한적으로 지원합니다. 모바일 및 태블릿 환경에서의 사용은 추후 지원 예정입니다.
+
+## 📚 추가 리소스
+
+<div className="sb-unstyled my-8 gap-4 flex flex-row flex-wrap">
+  <Card href="/?path=/docs/icons--docs" description="사용 가능한 아이콘 목록">
+    아이콘 라이브러리
+  </Card>
+  <Card href="/?path=/docs/releases-readme--docs" description="릴리즈 노트 및 변경사항">
+    릴리즈 노트
+  </Card>
+</div>
+
+### 커뮤니티 & 지원
+
+- 📖 **문서**: [Storybook](https://dsds.mwebdev.samsungds.net/storybooks/vue-vuetify)
+- 🐛 **이슈**: [GitHub Issues](https://github.samsungds.net/dsds/dsds/issues)
+- 💬 **토론**: [GitHub Discussions](https://github.samsungds.net/dsds/dsds/discussions)
+- 📦 **npm**: [@dsds/vue-vuetify](https://www.npmjs.com/package/@dsds/vue-vuetify)
+
+---
+
+**DSDS Vue Vuetify**로 더 나은 사용자 경험을 만들어 보세요! 🎉

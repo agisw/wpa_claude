@@ -1,0 +1,32 @@
+@import "@/styles/dsds/tokens/variables/index.css";
+
+.dsds-page-header-filter {
+  & > .v-row {
+    @apply my-0 px-3;
+    & > .v-col {
+      @apply py-0;
+      & > .v-row {
+        @apply flex items-center my-0 [&>.v-col]:pr-2!;
+        & > .v-col {
+          @apply py-0 px-0;
+        }
+      }
+    }
+  }
+
+  & > .v-row:not(:first-child) {
+    @apply mt-2;
+  }
+
+  & > .v-row > .v-col:not(:first-child).form-field {
+    @apply px-0;
+  }
+
+  .v-col.form-field {
+    @apply pt-0 pb-0.5!;
+  }
+}
+
+.v-divider.dsds-page-header-divider {
+  @apply text-transparent border-none bg-page-header-divider min-h-px opacity-100 mx-3!;
+}

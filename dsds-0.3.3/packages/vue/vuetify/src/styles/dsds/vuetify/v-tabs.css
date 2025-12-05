@@ -1,0 +1,10 @@
+@import "@/styles/dsds/tokens/tabs.css";
+
+.dsds-tab-underline {
+  /** Vuetify Tab 보정 */
+  height: 31px;
+}
+
+.dsds-tabs-list {
+  @apply relative inline-flex w-full items-center justify-start;
+}

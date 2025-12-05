@@ -1,0 +1,98 @@
+@import "@/styles/dsds/tokens/header.css";
+
+.dsds-header-gnb {
+  button.v-btn.dsds-v-btn.dsds-v-btn--variant-ghost {
+    &.dsds-header-button,
+    &.dsds-header-menu {
+      @apply !bg-header-bg !rounded-0 !text-header-text;
+
+      &:hover:not(.dsds-v-btn--disabled):not(.dsds-v-btn--selected) {
+        @apply !bg-header-menu-hover cursor-pointer;
+      }
+    }
+  }
+}
+
+.dsds-header-utility {
+  button.v-btn.dsds-v-btn.dsds-v-btn--variant-ghost {
+    &.dsds-header-button,
+    &.dsds-header-menu {
+      @apply !bg-transparent !text-header-text px-1.5 py-[3px] border-none min-w-fit h-5;
+
+      &:hover:not(.dsds-v-btn--disabled):not(.dsds-v-btn--selected) {
+        @apply !bg-transparent cursor-pointer;
+      }
+    }
+  }
+}
+
+.header-button-compact {
+  @apply px-0;
+}
+
+.header-button-wrapper {
+  @apply relative inline-flex shrink-0;
+}
+
+.header-badge {
+  @apply typo-sok-footnote-11-400 absolute top-[-1px] right-0 flex items-center justify-center rounded-full border-1 border-[#f73529] bg-[#e82c1f] text-white size-1.5;
+}
+
+.header-noti-count-wrapper {
+  @apply absolute top-[-4px] right-[-7.5px] z-100 w-[18px] max-w-[18px] overflow-clip text-center leading-3;
+}
+
+.header-noti-count-small {
+  @apply ml-[0.1px] !max-w-3 pr-0 pl-px;
+}
+
+.header-noti-count {
+  @apply min-w-3 cursor-default text-center;
+}
+
+.header-image {
+  @apply h-8 w-8 rounded-full;
+}
+
+.dsds-header-searchbox {
+  width: fit-content;
+}
+
+.dsds-header-dark {
+  .dsds-header-searchbox {
+    .dsds-icon {
+      @apply rounded-px transition-none;
+
+      &:hover {
+        @apply bg-header-icon-hover-bg;
+      }
+    }
+
+    input.v-field__input {
+      @apply !text-header-text !pr-0;
+    }
+
+    .v-field__outline__start,
+    .v-field__outline__end {
+      border-top-color: var(--color-header-searchbox-border);
+      border-bottom-color: var(--color-header-searchbox-border);
+      border-left-color: var(--color-header-searchbox-border);
+      border-right-color: var(--color-header-searchbox-border);
+    }
+
+    &:hover:not(:focus-within) {
+      input::placeholder {
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+
+      .v-field__outline__start,
+      .v-field__outline__end {
+        border-top-color: var(--color-header-searchbox-border);
+        border-bottom-color: var(--color-header-searchbox-border);
+        border-left-color: var(--color-header-searchbox-border);
+        border-right-color: var(--color-header-searchbox-border);
+      }
+    }
+  }
+}

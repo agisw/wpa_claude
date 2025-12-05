@@ -1,0 +1,109 @@
+@import "./variables";
+
+:root {
+  --color-footer-bg: #edf2f4;
+  --color-footer-text: var(--color-text-text-neutral-2nd);
+  --color-footer-copyright: var(--colors-neutral-neutral-14);
+  --color-footer-border: var(--color-border-border-2-outer);
+  --color-footer-divider: #d0d5d8;
+  --color-footer-button-hover: var(--colors-neutral-neutral-17);
+  --color-footer-button-disabled: var(--colors-neutral-neutral-13);
+}
+
+.dsds-footer-dark {
+  --color-footer-bg: var(--colors-neutral-neutral-17);
+  --color-footer-border: transparent;
+  --color-footer-text: #e0e0e0;
+  --color-footer-divider: var(--colors-neutral-neutral-15);
+  --color-footer-copyright: var(--colors-neutral-neutral-12);
+  --color-footer-button-hover: var(--colors-neutral-neutral-01);
+}
+
+@theme inline {
+  --color-footer-bg: var(--color-footer-bg);
+  --color-footer-text: var(--color-footer-text);
+  --color-footer-divider: var(--color-footer-divider);
+  --color-footer-button-hover: var(--color-footer-button-hover);
+  --color-footer-button-disabled: var(--color-footer-button-disabled);
+}
+
+@utility typo-footer-copyright {
+  @apply typo-sok-footnote-11-400;
+  letter-spacing: -0.1px;
+  color: var(--color-footer-copyright);
+  vertical-align: middle;
+}
+
+@utility typo-footer {
+  @apply typo-sok-footnote-11-400;
+}
+
+@utility border-t-footer {
+  border-top: 1px solid var(--color-footer-border);
+}
+
+.dsds-footer {
+  @apply bg-footer-bg text-footer-text flex w-full items-center;
+  @apply overflow-hidden;
+
+  &:not(.dsds-footer-fluid) {
+    @apply md:min-w-[768px] lg:min-w-[992px] xl:min-w-[1200px];
+  }
+
+  &.dsds-footer-compact {
+    @apply h-5 max-h-5 min-h-5 px-5 pb-px;
+  }
+
+  &.dsds-footer-cozy {
+    @apply h-7 max-h-7 min-h-7 px-5 pb-px;
+  }
+
+  .dsds-footer-container {
+    @apply w-full items-center gap-3;
+    * {
+      @apply typo-footer;
+    }
+  }
+
+  .dsds-footer-text {
+    @apply py-0.5 opacity-60;
+  }
+
+  .dsds-footer-button {
+    --color-bg-on-ghost-button-ghostbtn-default: transparent;
+    --color-bg-on-ghost-button-ghostbtn-hover: transparent;
+
+    /* Ghost 버튼을 커스터마이징: pt-px로 1px 위로 밀림 현상 방지 */
+    @apply hover:text-footer-button-hover disabled:text-footer-button-disabled typo-footer !bg-transparent px-0 opacity-60;
+  }
+
+  .dsds-footer-divider {
+    @apply h-2.5 w-[5px] px-0.5;
+  }
+
+  .dsds-footer-link {
+    @apply hover:text-footer-button-hover cursor-pointer text-inherit opacity-60 hover:underline!;
+  }
+
+  .dsds-footer-copyright {
+    @apply typo-footer-copyright flex items-center gap-1 px-1 first:pl-0 last:pr-0;
+  }
+}
+
+button.dsds-footer-button {
+  @apply cursor-pointer;
+
+  &:disabled {
+    .v-btn__content {
+      @apply !text-footer-button-disabled;
+    }
+  }
+
+  .v-btn__content {
+    @apply !text-footer-text;
+
+    &:hover {
+      @apply !text-footer-button-hover;
+    }
+  }
+}

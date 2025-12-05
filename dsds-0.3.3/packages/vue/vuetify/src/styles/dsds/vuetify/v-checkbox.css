@@ -1,0 +1,72 @@
+@import "@/styles/dsds/tokens/checkbox.css";
+
+.dsds-v-checkbox {
+  @apply inline-flex gap-1.5 items-center relative h-[14px];
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  &:not(.dsds-v-checkbox--disabled, .dsds-v-checkbox--readonly) {
+    &:focus-within {
+      @apply outline-ring;
+    }
+    &.dsds-v-checkbox.dsds-v-checkbox--checked,
+    &.dsds-v-checkbox.dsds-v-checkbox--indeterminate {
+      .dsds-v-checkbox-container:hover {
+        @apply bg-brand-hover border-brand-hover;
+      }
+    }
+
+    &.dsds-v-checkbox--unchecked {
+      .dsds-v-checkbox-container:hover {
+        @apply border-check-off-hover;
+      }
+    }
+  }
+}
+
+.dsds-v-checkbox.dsds-v-checkbox--disabled {
+  cursor: not-allowed;
+  .dsds-v-checkbox-container {
+    background-color: var(--colors-neutral-neutral-04) !important;
+  }
+}
+
+.dsds-v-checkbox.dsds-v-checkbox--checked,
+.dsds-v-checkbox.dsds-v-checkbox--indeterminate {
+  .dsds-v-checkbox-container {
+    @apply bg-brand border border-brand;
+  }
+}
+
+.dsds-v-checkbox.dsds-v-checkbox--unchecked {
+  .dsds-v-checkbox-container {
+    @apply bg-white border border-brand;
+    @apply border-check-off-default;
+  }
+}
+
+.dsds-v-checkbox.dsds-v-checkbox--readonly {
+  cursor: default;
+}
+
+.dsds-v-checkbox-container {
+  @apply flex shrink-0 rounded-xs select-none size-[14px];
+}
+
+.dsds-v-checkbox-label {
+  @apply text-neutral-2nd cursor-pointer typo-caption;
+}
+
+.dsds-v-checkbox-label--disabled {
+  @apply text-disabled cursor-not-allowed;
+}

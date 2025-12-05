@@ -1,0 +1,33 @@
+@import "./v-dropdown.css";
+@import "./v-dialog.css";
+@import "./v-form.css";
+
+@import "./v-btn.css";
+@import "./v-radio-group.css";
+@import "./v-checkbox.css";
+@import "./v-text-field.css";
+@import "./v-select.css";
+@import "./v-tabs.css";
+@import "./v-rating.css";
+@import "./v-toast.css";
+@import "./v-tooltip.css";
+
+@import "./header.css";
+@import "./richtext.css";
+
+@import "@/styles/dsds/tokens/lnb.css";
+@import "@/styles/dsds/tokens/footer.css";
+@import "@/styles/dsds/tokens/breadcrumb.css";
+@import "@/styles/dsds/tokens/pagination.css";
+@import "@/styles/dsds/tokens/badge.css";
+@import "@/styles/dsds/tokens/popover.css";
+@import "@/styles/dsds/tokens/tag.css";
+@import "@/styles/dsds/tokens/toggle.css";
+@import "@/styles/dsds/realgrid.css";
+
+@import "@/styles/dsds/prismjs/prismjs-vsc-dark.css";
+@import "@/styles/dsds/datepicker/vue-date-picker.css";
+
+:root {
+  --v-theme-overlay-multiplier: 1;
+}

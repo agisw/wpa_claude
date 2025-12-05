@@ -1,0 +1,111 @@
+# 레이아웃 컴포넌트
+
+DSDS에서 제공하는 레이아웃 관련 컴포넌트들을 알아보세요.
+
+## Header 컴포넌트
+
+애플리케이션의 상단 헤더를 구성합니다.
+
+```tsx
+import { Header } from "@dsds/react-radix-ui"
+
+<Header
+  logo="My Application"
+  theme="dark"
+  size="cozy"
+  gnb={[
+    {
+      content: "대시보드",
+      items: [
+        { content: "메인 대시보드", value: "main" },
+        { content: "분석 대시보드", value: "analytics" },
+      ],
+      type: "menu",
+    },
+  ]}
+  utility={[
+    { type: "searchbox" },
+    { content: "알림", type: "button", props: { badge: true } },
+    { content: "도움말", href: "/help", type: "link" },
+  ]}
+/>
+```
+
+## LNB (Left Navigation Bar)
+
+왼쪽 사이드바 내비게이션을 구성합니다.
+
+```tsx
+import { Lnb } from "@dsds/react-radix-ui"
+
+<Lnb
+  data={{
+    title: "메뉴",
+    items: [
+      {
+        id: "dashboard",
+        content: "대시보드",
+        items: [
+          { id: "overview", content: "개요" },
+          { id: "analytics", content: "분석" },
+        ],
+      },
+      {
+        id: "settings",
+        content: "설정",
+        items: [
+          { id: "general", content: "일반" },
+          { id: "security", content: "보안" },
+        ],
+      },
+    ],
+  }}
+  defaultSelectedItemId="overview"
+  onSelectionChange={(itemId) => console.log('Selected:', itemId)}
+/>
+```
+
+## Container & Grid
+
+### Container
+```tsx
+<div className="container mx-auto px-4">
+  <h1>컨테이너 내용</h1>
+</div>
+```
+
+### Grid System
+```tsx
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <div className="bg-gray-100 p-4">그리드 아이템 1</div>
+  <div className="bg-gray-100 p-4">그리드 아이템 2</div>
+  <div className="bg-gray-100 p-4">그리드 아이템 3</div>
+</div>
+```
+
+### Flexbox Layout
+```tsx
+<div className="flex flex-col md:flex-row">
+  <aside className="w-full md:w-1/4 bg-gray-50 p-4">
+    사이드바
+  </aside>
+  <main className="flex-1 p-4">
+    메인 콘텐츠
+  </main>
+</div>
+```
+
+## Card 컴포넌트
+
+```tsx
+import { Card, CardHeader, CardTitle, CardContent } from "@dsds/react-radix-ui"
+
+<Card>
+  <CardHeader>
+    <CardTitle>카드 제목</CardTitle>
+  </CardHeader>
+  <CardContent>
+    <p>카드 내용이 여기에 들어갑니다.</p>
+  </CardContent>
+</Card>
+```

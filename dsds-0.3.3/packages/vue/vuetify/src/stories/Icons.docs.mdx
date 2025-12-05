@@ -1,0 +1,13 @@
+import { Unstyled, Canvas, Meta } from '@storybook/addon-docs/blocks';
+
+import * as Stories from './Icons.stories';
+
+<Meta title="Icons" of={Stories} />
+
+# Icons
+
+This document lists all the icons defined in `src/components/icons/index.ts`. Each icon's color can be checked via the SVG stroke property using `getComputedStyle`.
+
+## All Icons
+
+<Canvas of={Stories.AllIcons} />

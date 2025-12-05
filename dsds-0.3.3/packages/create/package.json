@@ -1,0 +1,32 @@
+{
+  "name": "@dsds/create",
+  "version": "0.1.2",
+  "author": "김용기, 조무영 <dsds.srv@samsung.com>",
+  "description": "DSDS 프로젝트 생성 도구",
+  "bin": {
+    "create-dsds": "dist/index.js"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "vite build"
+  },
+  "dependencies": {
+    "inquirer": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^9.0.8",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3",
+    "vite": "^7.0.6",
+    "vite-plugin-dts": "^4.5.4",
+    "vite-plugin-static-copy": "^3.1.1"
+  }
+}

@@ -1,0 +1,16 @@
+import { Unstyled, Canvas, Meta, Story } from '@storybook/addon-docs/blocks';
+
+import * as Stories from "../Tabs.stories"
+
+<Meta title="QA/Doing/Tabs" />
+
+# Tabs QA 문서
+
+<Unstyled>
+  <div className="flex flex-col gap-6 max-w-[600px]">
+    <div className="flex flex-col gap-2">
+      <h2 className="typo-sss-h4-19-700 mb-1">1. Combinations</h2>
+      <Story of={Stories.TabsCombinations} />
+    </div>
+  </div>
+</Unstyled>

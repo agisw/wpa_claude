@@ -1,0 +1,289 @@
+@import "@/styles/dsds/tokens/variables/index.css";
+
+@theme inline {
+  --color-divider-on-tools: var(--colors-neutral-neutral-09);
+}
+
+.dsds-main-page {
+  @apply flex flex-col w-full h-screen;
+}
+
+
+.dsds-page {
+  @apply flex-1 flex flex-col min-w-0;
+
+  &:has(.dsds-page-header-filter) {
+    .dsds-page-body {
+      @apply elevation-page-content rounded-0;
+    }
+  }
+
+  .dsds-page-header-filter {
+    .dsds-page-header-filter-footer.collapsed {
+      button {
+        @apply z-1;
+      }
+    }
+  }
+
+  .dsds-page-header {
+    @apply z-1;
+    min-height: 41px;
+    height: 41px;
+
+    hr.v-divider.v-divider--vertical {
+      align-self: unset;
+      @apply h-3 mx-1 text-page-header-divider opacity-100;
+    }
+
+    &:not(.with-filter) {
+      @apply z-10 border-b border-page-header-divider;
+    }
+  }
+
+  .dsds-page-tabs {
+    @apply z-3 -ml-px;
+  }
+}
+
+
+.dsds-page-header-filter {
+  @apply text-xs bg-page-header-bg;
+
+  &.expanded {
+    @apply px-3;
+  }
+}
+
+.dsds-page-header-filter-divider {
+  @apply h-px w-full bg-page-header-divider mb-[7px];
+}
+
+.dsds-page-header-filter-footer {
+  @apply flex flex-row justify-center w-full;
+  &.collapsed {
+    @apply h-0;
+    margin-top: -12px;
+  }
+  &.expanded {
+    @apply mt-3;
+  }
+}
+
+.dsds-page-header-filter-row {
+  @apply flex items-center gap-2;
+}
+
+.dsds-page-body {
+  @apply w-full flex-1 p-3 flex flex-col min-h-0;
+  @apply bg-white rounded-0;
+}
+
+.dsds-page-body-tools {
+  @apply w-full h-5 max-h-5 flex items-center gap-1.5 mb-2 justify-end typo-caption;
+  @apply text-neutral-3rd;
+  hr.v-divider.v-divider--vertical {
+    align-self: unset;
+    @apply h-2.5 mx-0! text-divider-on-tools opacity-100;
+  }
+}
+
+.dsds-page-body-content {
+  @apply flex-1 w-full;
+}
+
+.dsds-page-body--panel {
+  @apply p-3;
+}
+
+.dsds-page-header {
+  @apply w-full flex px-3 flex-row items-center text-page-header bg-page-header-bg;
+  min-height: 40px;
+  height: 40px;
+
+  &.with-border {
+    @apply z-10 border-b border-page-header-divider;
+    min-height: 41px;
+    height: 41px;
+  }
+}
+
+.dsds-page-header-divider {
+  @apply w-px min-w-px! p-0 bg-page-header-divider;
+}
+
+.dsds-panel {
+  @apply h-full bg-page-panel-bg flex flex-col;
+  & > .dsds-panel-section {
+    @apply p-3 gap-x-3 gap-y-2;
+    hr.v-divider.v-divider--vertical {
+      align-self: unset;
+      @apply h-2.5 mx-0! opacity-100 text-divider-on-tools;
+    }
+  }
+
+  .dsds-panel-section--footer {
+    @apply flex items-center gap-1.5 pt-1;
+  }
+}
+
+.dsds-page-panel {
+  @apply flex-1 p-3 flex flex-col gap-2 h-full;
+
+  .dsds-page-panel-header {
+    @apply typo-sok-h5-16-700 flex items-center gap-1.5;
+  }
+  .dsds-page-panel-tools {
+    @apply flex items-center gap-1.5;
+  }
+
+  .dsds-page-panel-header,
+  .dsds-page-panel-tools {
+    hr.v-divider.v-divider--vertical {
+      align-self: unset;
+      @apply h-2.5 mx-0! opacity-100 text-divider-on-tools;
+    }
+  }
+
+  .dsds-page-panel-header--tools {
+    @apply ml-auto flex items-center gap-1.5;
+  }
+}
+
+.dsds-panel-tool-group {
+  @apply flex items-center gap-1;
+}
+
+.dsds-panel-divider {
+  @apply relative w-full h-px min-h-px! p-0 bg-transparent;
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    top: 0px;
+    background-color: var(--color-page-header-divider);
+  }
+
+  &.dsds-panel-divider--double {
+    @apply min-h-1;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 1px;
+      bottom: 0px;
+      background-color: var(--color-page-header-divider);
+    }
+  }
+}
+
+.dsds-form-title {
+  @apply typo-sok-h6-14-700 mb-2;
+}
+
+.dsds-form-label {
+  @apply text-xs typo-sok-h7-12-700 text-neutral-1st truncate;
+}
+
+.dsds-form-tools {
+  @apply flex items-center font-normal gap-1.5;
+
+  /*
+    label 과 그 다음 요소들 사이의 간격은 4px 로 좁히기 위해
+    label 요소에 margin-right: -2px 을 적용합니다.
+  */
+  label {
+    margin-right: -2px;
+  }
+
+  hr.v-divider.v-divider--vertical {
+    @apply h-2.5 mx-0! text-divider-on-tools opacity-100;
+    align-self: unset;
+    &:first-child {
+      margin-left: -2px !important;
+    }
+  }
+}
+
+.dsds-form-field {
+  @apply flex flex-col gap-0.5;
+
+  &.without-label {
+    @apply pt-[22px]!;
+  }
+
+  &.with-tools {
+    @apply gap-1;
+  }
+
+  &.dsds-form-field-large {
+    @apply gap-2;
+    & > .dsds-form-field-label {
+      @apply typo-sok-h6-14-700!;
+    }
+  }
+
+  .dsds-form-field-label {
+    @apply flex items-center min-h-5;
+  }
+  .dsds-form-field-tools {
+    @apply flex items-center font-normal gap-1 ml-1.5;
+  }
+}
+
+.dsds-form-item {
+  @apply flex flex-col gap-2;
+
+  .dsds-form-item-title {
+    @apply flex items-center gap-2.5 typo-sok-h6-14-400 max-h-5 text-neutral-2nd;
+    & > b {
+      @apply text-neutral-1st;
+    }
+  }
+
+  .dsds-form-item-hint-text {
+    @apply typo-caption text-disabled;
+  }
+}
+
+.dsds-form-contents {
+  @apply w-full flex flex-col gap-10;
+
+  &>.dsds-form-content {
+    @apply w-full flex flex-col gap-2;
+
+    &>.dsds-form-title {
+      @apply mb-0;
+    }
+  }
+}
+
+.dsds-form-field-content-rows {
+  @apply flex flex-col gap-1 w-full;
+}
+
+.dsds-form-field-content-row {
+  @apply flex items-center gap-1;
+
+  hr.v-divider.v-divider--vertical {
+    align-self: unset;
+    @apply h-2.5 mx-0.5! text-divider-on-tools opacity-100;
+  }
+
+  label {
+    @apply typo-caption;
+  }
+
+  /*
+   * .v-input 다음에 label 이 올 경우, 다른 종류의 입력을 나타내므로
+   * 구분을 위해 ml-0.5 적용
+   */
+  .v-input + label {
+    @apply ml-0.5;
+  }
+
+}

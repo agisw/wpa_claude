@@ -1,0 +1,201 @@
+@import "tailwindcss";
+
+@utility path-opacity-disabled {
+  path {
+    opacity: 0.35;
+  }
+}
+
+@utility border-icon-hover {
+  outline: 1px solid var(--color-icon-border-hover);
+}
+
+:root {
+  --color-icon-default-hover-bg: var(--color-bg-on-item-list-datatable-hover);
+  --color-icon-default-hover-border: var(--color-border-on-item-list-datatable-hover);
+  --color-icon-default-disabled: var(--colors-neutral-neutral-15);
+}
+
+@theme inline {
+  --color-icon-default-hover-bg: var(--color-icon-default-hover-bg);
+  --color-icon-disabled: var(--color-icon-disabled);
+}
+
+@utility dsds-icon-hover {
+  @apply rounded-px bg-icon-default-hover-bg;
+  border-color: var(--color-icon-default-hover-border);
+}
+
+@utility dsds-icon-focus {
+  @apply rounded-px bg-icon-default-hover-bg outline-1;
+  outline-color: var(--color-icon-selected);
+}
+
+.dsds-icon {
+  @apply size-4 min-h-4 min-w-4 rounded-px border-1 border-transparent text-sm;
+
+  &.dsds-icon-5x5 {
+    @apply size-5px min-h-5px min-w-5px;
+  }
+
+  .dsds-dummy-icon-placeholder {
+    @apply size-full border-1 border-(--color-border-on-button-on-icon-dummy-default) bg-[var(--color-bg-on-button-on-icon-dummy-default)];
+  }
+
+  /* 부모가 `button:disabled` 상태일 때 아이콘에 적용할 스타일 */
+  button:disabled & {
+    opacity: 0.4;
+    @apply cursor-not-allowed;
+  }
+
+  .box-wrapper.disabled > div & {
+    opacity: 0.4;
+  }
+
+  &.with-default-stroke {
+    @apply [&_svg]:stroke-(--color-icon-default-1st);
+  }
+
+  &.with-default-fill {
+    @apply [&_svg]:fill-(--color-icon-default-1st);
+  }
+
+  &.with-default-color {
+    @apply [&_svg]:stroke-(--color-icon-default-1st);
+    @apply [&_svg]:fill-(--color-icon-default-1st);
+  }
+
+  &.disabled {
+    @apply [&_svg]:stroke-(--color-text-text-disabled-optional);
+  }
+
+  &:not(.disabled) {
+    /** 이벤트 핸들러가 있을 경우만 스타일이 반응하도록 함 */
+    &.cursor-pointer {
+      &:hover {
+        @apply dsds-icon-hover;
+      }
+
+      &:focus-visible {
+        @apply dsds-icon-focus;
+      }
+
+      &.disabled {
+        @apply bg-[var(--colors-neutral-neutral-15)]! opacity-40!;
+      }
+    }
+  }
+}
+
+/*
+ * Spinner Icons
+ */
+.dsds-spinner {
+  display: inline-block;
+  --spinner-color: var(--color-brand);
+  stroke: var(--spinner-color);
+}
+
+.dsds-spinner-animation {
+  transform-origin: center;
+  animation: spinner-rotate 1.4s linear infinite;
+}
+
+.dsds-spinner-animation circle {
+  stroke-linecap: round;
+  animation: spinner-dash 1.05s ease-in-out infinite;
+}
+
+.dsds-spinner-xs circle {
+  animation-name: spinner-dash-xs;
+}
+.dsds-spinner-small circle {
+  animation-name: spinner-dash-small;
+}
+.dsds-spinner-medium circle {
+  animation-name: spinner-dash-medium;
+}
+.dsds-spinner-large circle {
+  animation-name: spinner-dash-large;
+}
+.dsds-spinner-xl circle {
+  animation-name: spinner-dash-xl;
+}
+
+@keyframes spinner-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spinner-dash-xs {
+  0% {
+    stroke-dasharray: 0 32;
+    stroke-dashoffset: 0;
+  }
+  47.5% {
+    stroke-dasharray: 9 32;
+    stroke-dashoffset: -3;
+  }
+  95%, 100% {
+    stroke-dasharray: 9 32;
+    stroke-dashoffset: -12;
+  }
+}
+
+@keyframes spinner-dash-small {
+  0% {
+    stroke-dasharray: 0 95;
+    stroke-dashoffset: 0;
+  }
+  47.5% {
+    stroke-dasharray: 27 95;
+    stroke-dashoffset: -10;
+  }
+  95%, 100% {
+    stroke-dasharray: 27 95;
+    stroke-dashoffset: -37;
+  }
+}
+@keyframes spinner-dash-medium {
+  0% {
+    stroke-dasharray: 0 150;
+    stroke-dashoffset: 0;
+  }
+  47.5% {
+    stroke-dasharray: 42 150;
+    stroke-dashoffset: -16;
+  }
+  95%, 100% {
+    stroke-dasharray: 42 150;
+    stroke-dashoffset: -59;
+  }
+}
+@keyframes spinner-dash-large {
+  0% {
+    stroke-dasharray: 0 316;
+    stroke-dashoffset: 0;
+  }
+  47.5% {
+    stroke-dasharray: 88 316;
+    stroke-dashoffset: -34;
+  }
+  95%, 100% {
+    stroke-dasharray: 88 316;
+    stroke-dashoffset: -124;
+  }
+}
+@keyframes spinner-dash-xl {
+  0% {
+    stroke-dasharray: 0 632;
+    stroke-dashoffset: 0;
+  }
+  47.5% {
+    stroke-dasharray: 177 632;
+    stroke-dashoffset: -67;
+  }
+  95%, 100% {
+    stroke-dasharray: 177 632;
+    stroke-dashoffset: -248;
+  }
+}

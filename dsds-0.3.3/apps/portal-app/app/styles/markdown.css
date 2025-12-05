@@ -1,0 +1,78 @@
+@import "./variables/index.css";
+@import "highlight.js/styles/github-dark.css";
+
+@utility heading-border-* {
+  border-bottom: --value(--border-width-*) solid var(--colors-neutral-neutral-08);
+}
+
+.markdown {
+  @apply text-foreground bg-background px-5 py-4 font-sans text-sm;
+
+  h1 {
+    @apply font-heading heading-border-md mb-4 pb-1 text-3xl [&:not(:first-child)]:mt-4;
+  }
+
+  h2 {
+    @apply font-heading heading-border-sm pb-xs mb-3 text-2xl [&:not(:first-child)]:mt-4;
+  }
+
+  h3 {
+    @apply font-heading pb-xs mb-2 text-xl [&:not(:first-child)]:mt-4;
+  }
+
+  p {
+    @apply mb-4 text-base leading-6 [&:not(:first-child)]:mt-4;
+  }
+
+  /* p 다음에 pre태그가 오면 p 태그에 mb-2 적용 */
+  p + pre {
+    @apply mt-[-8px];
+  }
+
+  ul {
+    margin-block-start: 16px;
+    padding-inline-start: 20px;
+
+    & > li {
+      list-style: disc;
+    }
+  }
+
+  ol {
+    margin-block-start: 16px;
+    padding-inline-start: 20px;
+
+    & > li {
+      list-style: decimal;
+    }
+  }
+
+  li > ul,
+  ol {
+    margin-block-start: 0px;
+  }
+
+  ul > li:last-child {
+    margin-bottom: 8px;
+  }
+
+  a {
+    @apply text-brand hover:underline;
+  }
+
+  /** code but not has a parent 'pre' block */
+  :not(pre) > code {
+    @apply rounded-sm border border-neutral-200 bg-neutral-100 px-0.5 font-mono;
+  }
+
+  pre {
+    @apply mt-1 mb-3 p-0;
+    code.hljs {
+      @apply rounded-sm font-mono text-sm shadow-sm;
+    }
+
+    code:not(.hljs) {
+      @apply p-2;
+    }
+  }
+}

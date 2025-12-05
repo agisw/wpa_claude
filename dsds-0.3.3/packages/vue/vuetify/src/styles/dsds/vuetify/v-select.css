@@ -1,0 +1,262 @@
+@import "@/styles/dsds/tokens/boxes.css";
+
+@utility selection-count-badge {
+  @apply inline-flex items-center justify-center max-h-[14px] px-1 rounded-[0.9px] typo-footnote text-neutral-2nd border-1 z-2;
+  background-color: var(--colors-neutral-neutral-04);
+  &.all-selected {
+    @apply font-bold;
+  }
+  border-color: var(--color-border-border-1-emphasize);
+  flex-shrink: 0;
+}
+
+.dsds-v-select.v-select,
+.dsds-v-select.v-autocomplete {
+  * {
+    letter-spacing: 0.8px;
+  }
+
+  .v-field--variant-outlined.v-field--focused .v-field__outline {
+    --v-field-border-width: 1px;
+  }
+
+  .v-field {
+    @apply typo-medium bg-white rounded-xs;
+    padding: 0 !important;
+
+    &.v-field--disabled {
+      @apply opacity-100 rounded-xs;
+      @apply bg-[var(--color-bg-on-box-box-disabled)]! text-[var(--color-text-on-button-on-2ndary-disabled)]!;
+    }
+  }
+
+  /* Color/text/on_button/on_2ndary-disabled */
+
+  .v-field__field {
+    padding: 0 !important;
+  }
+
+  .v-input__details {
+    display: none;
+  }
+
+  /* Input field styling */
+  .v-field__input {
+    min-height: auto !important;
+    @apply gap-0;
+
+    input {
+      @apply text-basic-box-text-value placeholder:!text-basic-box-text-hint placeholder:opacity-100;
+    }
+
+    &:disabled {
+      @apply !text-dropdown-trigger-text-disabled;
+    }
+    & > .v-select__selection {
+      @apply mr-0!;
+    }
+  }
+
+  .v-field__prepend-inner {
+    .selection-count-badge {
+      @apply selection-count-badge ml-1.5!;
+    }
+  }
+
+  /** 선택된 항목 텍스트 */
+  .v-select__selection {
+    @apply m-0 p-0 truncate;
+    .selection-count-badge {
+      @apply selection-count-badge;
+    }
+
+    .multi-selection-text {
+      @apply truncate;
+    }
+  }
+
+  /* Input field styling - VAutocomplete의 실제 input 요소 */
+  .v-field__input {
+    min-height: auto !important;
+
+    input {
+      @apply text-basic-box-text-value placeholder:!text-basic-box-text-hint placeholder:opacity-100;
+    }
+
+    &:disabled {
+      @apply !text-dropdown-trigger-text-disabled;
+    }
+  }
+
+  .v-field__input input {
+    @apply text-basic-box-text-value typo-medium;
+
+    &::placeholder {
+      @apply !text-basic-box-text-hint opacity-100;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  /* VAutocomplete multiple 모드에서 selection 영역 */
+  .v-autocomplete__selection {
+    height: initial;
+    @apply m-0 p-0 cursor-pointer;
+
+    & > .multi-selection-text {
+      @apply truncate;
+    }
+  }
+
+  &.badge-after .v-field__append-inner {
+    @apply min-w-9 w-full cursor-default;
+  }
+
+  /* Hide default Vuetify select icon */
+  .v-field__append-inner {
+    @apply w-4 mr-[3px];
+    .v-icon {
+      display: none !important;
+    }
+  }
+}
+
+.dsds-v-select.v-autocomplete {
+  .v-input__control {
+    span.chip {
+      @apply text-primary bg-[var(--colors-neutral-neutral-04)] border border-[var(--color-text-box-border-default)] rounded-xs -ml-px;
+    }
+    .v-field__field > .v-field__input {
+      display: flex;
+      flex-wrap: nowrap;
+    }
+  }
+}
+
+@utility dsds-v-select-large {
+  .v-field {
+    @apply h-7 min-h-7 pr-[5px];
+  }
+
+  .v-field__append-inner {
+    @apply h-7 min-h-7 mr-0;
+  }
+
+  .v-field__input {
+    @apply py-1 px-2 pr-1 h-7;
+
+    input {
+    }
+  }
+}
+
+@utility dsds-v-select-medium {
+  .v-field {
+    @apply h-6 min-h-6 pr-[5px];
+  }
+
+  .v-field__append-inner {
+    @apply h-6 min-h-6 mr-0;
+  }
+
+  .v-field__input {
+    @apply py-0.5 px-2 pr-1 h-6;
+
+    input {
+    }
+  }
+}
+
+@utility dsds-v-select-small {
+  .v-field {
+    @apply h-5 min-h-5 pr-[3px] typo-box-label-small;
+  }
+
+  .v-field__append-inner {
+    @apply h-5 min-h-5 mr-0;
+  }
+
+  .v-field__input {
+    @apply py-0.5 px-1.5 pr-0! h-5;
+
+    input {
+      @apply typo-box-label-small;
+      align-self: unset;
+    }
+  }
+}
+
+/* Default 스타일: 기본 Border 표시 */
+.dsds-v-select.dropdown-select-default {
+  .v-field__outline__start,
+  .v-field__outline__end {
+    transition: none;
+    border-color: var(--color-text-box-border-default);
+    opacity: 1;
+  }
+
+  &:hover {
+    .v-field__outline__start,
+    .v-field__outline__end {
+      border-color: var(--color-text-box-border-hover);
+    }
+  }
+
+  &:focus-within {
+    .clear-button {
+      display: initial;
+    }
+    .v-field__outline__start,
+    .v-field__outline__end {
+      border-color: var(--color-text-box-border-focus);
+    }
+    .v-field__outline__start {
+      border-left-width: 1px;
+      border-top-width: 1px;
+      border-bottom-width: 1px;
+    }
+    .v-field__outline__end {
+      border-color: var(--color-text-box-border-focus);
+      border-right-width: 1px;
+      border-top-width: 1px;
+      border-bottom-width: 1px;
+    }
+  }
+}
+
+/* Ghost Variant: Border는 Focus 시에만 */
+.dsds-v-select.dropdown-select-ghost {
+  .v-field {
+    @apply bg-text-box-bg-ghost shadow-none;
+  }
+
+  &:hover .v-field {
+    @apply bg-text-box-bg-ghost-hover;
+  }
+
+  &:focus-within .v-field {
+    @apply border-text-box-focus bg-text-box-bg-ghost-hover;
+  }
+
+  .v-field.v-field--disabled {
+    @apply bg-text-box-bg-ghost-disabled;
+  }
+
+  /* 선택된 값이 있을 때 populated 스타일 */
+  .v-field:has(.v-select__selection) {
+    @apply bg-text-box-bg-ghost-populated;
+  }
+
+  &:hover .v-field:has(.v-select__selection) {
+    @apply bg-text-box-bg-ghost-populated-hover;
+  }
+}
+
+/* 여러개 선택 가능할때 뱃지가 차지할 영역을 위해 시각적 보상: 왼쪽 여백을 좁힘 */
+@utility dsds-v-select-multiple {
+  .v-field__input {
+    @apply pl-1.5!;
+  }
+}

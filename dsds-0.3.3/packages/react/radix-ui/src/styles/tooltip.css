@@ -1,0 +1,36 @@
+@theme inline {
+  --color-tooltip-bg: var(--color-bg-on-tooltip-tooltip-bg);
+  --color-tooltip-text: var(--colors-neutral-neutral-02);
+}
+
+.dsds-tooltip {
+  @apply bg-tooltip-bg text-tooltip-text typo-caption shadow-sm transition-opacity!;
+  @apply animate-in fade-in-0;
+  @apply data-[state=closed]:animate-out data-[state=closed]:fade-out-0;
+  @apply !duration-100;
+
+  @apply data-[side=top]:data-[align=start]:[&>span:first-child]:left-[13px]!;
+  @apply data-[side=bottom]:data-[align=start]:[&>span:first-child]:left-[13px]!;
+  @apply data-[side=top]:data-[align=end]:[&>span:first-child]:left-[calc(100%-29px)]!;
+  @apply data-[side=bottom]:data-[align=end]:[&>span:first-child]:left-[calc(100%-29px)]!;
+
+  @apply data-[side=left]:data-[align=start]:[&>span:first-child]:top-[17px]!;
+  @apply data-[side=left]:data-[align=end]:[&>span:first-child]:top-[calc(100%-25px)]!;
+  @apply data-[side=right]:data-[align=start]:[&>span:first-child]:top-[17px]!;
+  @apply data-[side=right]:data-[align=end]:[&>span:first-child]:top-[calc(100%-25px)]!;
+
+  @apply z-50 w-fit;
+  @apply rounded-[6px] px-4 py-2;
+
+  .dsds-tooltip-title {
+    @apply typo-sok-h7-12-700;
+  }
+
+  .dsds-tooltip-body {
+    @apply typo-caption;
+  }
+
+  .dsds-tooltip-arrow {
+    @apply fill-tooltip-bg visible z-50 block h-[8px] w-[16px] transition-opacity! !duration-80;
+  }
+}

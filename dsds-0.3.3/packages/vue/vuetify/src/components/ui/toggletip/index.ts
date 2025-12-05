@@ -1,0 +1,5 @@
+export { default as Toggletip } from "./Toggletip.vue"
+export { default as ToggletipFrame } from "./ToggletipFrame.vue"
+export { default as ToggletipContent } from "./ToggletipContent.vue"
+export { default as ToggletipTitle } from "./ToggletipTitle.vue"
+export { default as ToggletipFooter } from "./ToggletipFooter.vue"

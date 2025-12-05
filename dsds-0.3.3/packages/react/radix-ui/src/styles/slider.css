@@ -1,0 +1,51 @@
+@import "./variables/index.css";
+
+@layer utilities {
+  .slider-container {
+    @apply relative flex h-[24px] w-[202px] items-center;
+  }
+
+  .slider-root {
+    @apply relative mx-1 flex w-[106px] items-center;
+  }
+
+  .slider-track {
+    @apply relative z-0 h-[6px] w-full overflow-visible rounded-[4px];
+    @apply border border-[var(--colors-neutral-neutral-09)];
+    @apply bg-[linear-gradient(180deg,var(--colors-neutral-neutral-07)_0%,var(--colors-neutral-neutral-07)_24%,var(--colors-neutral-neutral-07)_48%,var(--colors-neutral-neutral-03)_96%)];
+  }
+
+  .slider-range {
+    @apply absolute top-1/2 right-0 left-0 z-[1] h-[8px];
+    @apply -translate-y-[calc(50%)];
+    @apply border border-[var(--colors-neutral-neutral-09)];
+    @apply bg-[var(--colors-neutral-neutral-01)];
+  }
+
+  .slider-thumb {
+    @apply block h-[16px] w-[6px] shrink-0 rounded-[7px];
+    @apply border border-[var(--colors-neutral-neutral-10)];
+    @apply bg-[var(--colors-neutral-neutral-01)];
+  }
+
+  .slider-textbox-wrapper {
+  }
+
+  .slider-text-hint {
+    color: var(--colors-neutral-neutral-13);
+  }
+  .slider-text-strong {
+    color: var(--colors-neutral-neutral-16);
+  }
+
+  .group[data-dragging="false"] .slider-thumb:hover {
+    border-color: var(--colors-neutral-neutral-12);
+  }
+
+  .group[data-modality="keyboard"] .slider-thumb:focus-visible {
+    border-color: var(--colors-neutral-neutral-12);
+    border-radius: 4px;
+    outline: 1px solid var(--colors-wafer-blue-wafer-blue-09);
+    outline-offset: 2px;
+  }
+}

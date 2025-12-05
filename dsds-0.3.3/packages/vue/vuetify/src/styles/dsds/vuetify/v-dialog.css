@@ -1,0 +1,174 @@
+/* 래퍼: v-overlay */
+.dsds-v-dialog {
+  /* 오버레이 컨테이너 z-index만 보정(필요 시) */
+  @apply z-[2000]! typo-body;
+}
+
+/* 스크림(배경 언더레이) */
+.dsds-v-dialog .v-overlay__scrim {
+  opacity: initial;
+  @apply bg-modal-backdrop! transition-none! transition-opacity! ease-out! duration-50!;
+}
+
+/* 콘텐츠 박스 (실제 다이얼로그) */
+.dsds-v-dialog {
+  /*
+   * DialogPanel 등에서 그리드를 사용할 때 결과 행이 전체 높이를 다 채우지 못할 경우 데이터가 없는 영역의 흐리게 처리
+   */
+  /* 필요에 따라 empty grid BG 스타일 조정
+  .dsds-realgrid {
+    .rg-root.rg-grid {
+      background-color: var(--colors-neutral-neutral-03);
+      .rg-empty-grid {
+        @apply bg-[var(--colors-neutral-neutral-03)];
+      }
+    }
+    .rg-body {
+      background-color: var(--colors-neutral-neutral-03);
+    }
+  }
+  */
+
+  .v-overlay__content {
+    @apply bg-transparent shadow-lg! ease-out! duration-100! max-h-[90vh] typo-body;
+    border-radius: 6px;
+
+
+    & > .v-card {
+      /* 다이얼로그의 header, footer 간 경계선 */
+      .v-divider {
+        opacity: 100;
+        background-color: transparent;
+        color: var(--color-border-border-3-inner);
+      }
+
+      .v-divider.vertical {
+        color: var(--color-border-border-3-inner);
+      }
+
+
+      & > .v-card-title {
+        .dsds-dialog-close-icon {
+          @apply ml-auto flex flex-row items-center;
+        }
+
+        &:has(.dsds-dialog-header-title) {
+          @apply h-13 py-4 border-b border-[var(--color-border-border-3-inner)] px-5!;
+        }
+        &:has(.dsds-dialog-header-no-title) {
+          @apply h-10;
+          .dsds-dialog-close-icon {
+            @apply mt-2;
+          }
+        }
+        & > .dsds-dialog-header {
+          @apply bg-white w-full flex px-0 flex-row items-center text-page-header typo-dialog-header;
+        }
+      }
+
+      .v-card-text {
+        @apply p-5! overflow-y-auto scrollbar-thin;
+        &.has-scrollbar {
+          padding-right: 10px !important;
+        }
+
+        /*
+          첫 번째 자식 요소가 .dsds-dialog-panel > .dsds-dialog-panel-body 이고
+          FormField 를 가지고 있을 경우
+        */
+        &:has(.dsds-dialog-panel-body .dsds-form-field-label ) {
+          @apply pt-4!;
+        }
+
+        .scrollable {
+          @apply scrollbar-thin;
+        }
+
+        @apply text-body;
+      }
+
+      .dsds-dialog-form-filter {
+        @apply flex flex-col gap-2 px-5 pt-3 pb-5;
+        & > .dsds-dialog-form-filter-row {
+          @apply px-0 py-0;
+        }
+        & > .v-divider {
+          @apply my-0.5!;
+        }
+      }
+
+      .dsds-dialog-form-filter-row {
+        @apply flex items-center gap-2 px-5 py-3;
+      }
+
+      .v-card-text.dsds-dialog-form-body {
+        @apply flex flex-col flex-1 gap-2;
+        &.flex-row {
+          flex-direction: row;
+        }
+      }
+
+      /* .v-divider 다음에 오는 .v-card-text 는 "pt-3" 을 적용 */
+      .v-divider + .v-card-text {
+        @apply pt-4!;
+      }
+
+      .v-card-text + .v-card-actions {
+        @apply mt-0!;
+      }
+
+      & > .v-card-actions {
+        min-height: 61px;
+        height: 61px;
+        max-height: 61px;
+        @apply px-5! py-4 flex items-center justify-end;
+        @apply py-4 border-t-1 border-[var(--color-border-border-3-inner)] px-5!;
+      }
+    }
+  }
+}
+
+/* Variant: modal (더 진한 스크림) */
+.dsds-v-dialog.dsds-dialog-modal .v-overlay__scrim {
+  @apply bg-black/60;
+}
+
+/* Variant: fullscreen */
+.dsds-v-dialog.dsds-dialog-fullscreen .v-overlay__content {
+  @apply m-0 rounded-none h-screen max-h-screen w-screen max-w-screen;
+  .v-card {
+    @apply rounded-none;
+    * {
+      @apply typo-body;
+    }
+  }
+}
+
+/* Size variants (content-class에 붙는 클래스들) */
+.dsds-dialog-content-xs {
+  @apply w-[400px]! min-h-[248px]!;
+}
+.dsds-dialog-content-small {
+  @apply w-[520px]! min-h-[324px]!;
+}
+.dsds-dialog-content-medium {
+  @apply w-[640px]! min-h-[400px]!;
+}
+.dsds-dialog-content-large {
+  @apply w-[800px]! min-h-[496px]!;
+}
+.dsds-dialog-content-xl {
+  @apply w-[1000px]! min-h-[620px]!;
+}
+.dsds-dialog-content-2xl {
+  @apply w-[1200px]! min-h-[744px]!;
+}
+.dsds-dialog-content-3xl {
+  @apply w-[1400px]! min-h-[744px]!;
+}
+.dsds-dialog-content-4xl {
+  @apply w-[1600px]! min-h-[744px]!;
+}
+.dsds-dialog-content-5xl {
+  @apply w-[1800px]! min-h-[744px]!;
+}

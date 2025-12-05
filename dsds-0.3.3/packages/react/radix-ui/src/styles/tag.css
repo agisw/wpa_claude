@@ -1,0 +1,72 @@
+@import "./button.css";
+
+@theme inline {
+  --color-tag-bg: var(--colors-neutral-neutral-04);
+  --color-tag-text: var(--colors-neutral-neutral-15);
+  --color-tag-text-disabled: var(--colors-neutral-neutral-11);
+  --color-tag-hashtag-text: var(--colors-neutral-neutral-13);
+  --color-tag-close-border-hover: var(--colors-neutral-neutral-15);
+  --color-tag-close-bg-hover: var(--color-bg-on-ghost-button-ghostbtn-hover);
+}
+
+@utility border-tag {
+  box-shadow: inset 0 0 0 1px var(--colors-neutral-neutral-07);
+}
+
+@utility border-tag-progress {
+  box-shadow: inset 0 0 0 1px #b3e8f6;
+}
+
+@utility border-tag-approval {
+  box-shadow: inset 0 0 0 1px #ffd390;
+}
+
+@utility border-tag-none {
+  box-shadow: inset 0 0 0 1px #f3f6f8;
+}
+
+@utility border-tag-hover {
+  box-shadow: inset 0 0 0 1px var(--colors-neutral-neutral-09);
+}
+
+/* 기본 Tag 스타일 */
+.dsds-tag {
+  @apply typo-caption flex h-5 min-w-5 items-center justify-center rounded-[var(--radius-xs)] px-1 hover:cursor-pointer;
+  @apply border-tag hover:border-tag-hover bg-tag-bg text-tag-text;
+  @apply focus-visible:outline-ring-0;
+
+  /* 둥근 Tag 스타일 */
+  &.dsds-tag-round {
+    border-radius: 20px;
+  }
+
+  /* 해시태그 Tag 스타일 */
+  &.dsds-tag-hashtag {
+    @apply h-[18px];
+  }
+
+  /* 비활성화 Tag 스타일 */
+  &.dsds-tag-disabled {
+    @apply text-tag-text-disabled pointer-events-none;
+  }
+
+  /* 아이콘 스타일 */
+  .dsds-tag-icon {
+    @apply pl-0.5;
+  }
+
+  /* 해시태그 심볼 스타일 */
+  .dsds-tag-hashtag-symbol {
+    @apply text-tag-hashtag-text pl-0.5;
+  }
+
+  /* 타이틀 스타일 */
+  .dsds-tag-title {
+    @apply px-0.5 underline-offset-3 hover:underline;
+  }
+
+  /* 닫기 버튼 스타일 */
+  .dsds-tag-close {
+    @apply focus-visible:outline-ring-0 hover:border-tag-close-border-hover hover:bg-tag-close-bg-hover focus:bg-tag-close-bg-hover rounded-xs hover:cursor-pointer;
+  }
+}
