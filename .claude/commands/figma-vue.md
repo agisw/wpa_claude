@@ -128,6 +128,75 @@ Vuetify 기본 스타일이 Figma 원본과 다를 수 있으므로 주의:
 - ❌ `justify="center"` 남용
 - ❌ Vuetify 기본 elevation/shadow 그대로 사용
 
+## v-app-bar + v-main 레이아웃 (⚠️ 중요)
+
+### 문제 상황
+`v-app-bar`는 기본적으로 `position: fixed`로 동작하며, Vuetify는 `v-main`에 자동으로 헤더 높이만큼 `padding-top`을 추가합니다. 하지만 스타일 초기화 과정에서 이 자동 패딩이 무효화되면 **콘텐츠가 헤더 뒤에 가려지는 문제**가 발생합니다.
+
+```
+문제 발생 시 화면 구조:
+┌─────────────────────────────────────┐
+│  v-app-bar (fixed, 상단 고정)        │ ← z-index 높음
+├─────────────────────────────────────┤
+│  v-main 콘텐츠 (y=0부터 시작)        │ ← 헤더 뒤에 가려짐!
+│  페이지 제목이 안 보임...            │
+└─────────────────────────────────────┘
+```
+
+### 원인
+`v-main`의 padding을 일괄 초기화하면 Vuetify의 자동 `padding-top` 계산이 무효화됨:
+```css
+/* ❌ 문제가 되는 패턴 */
+.v-main {
+  padding: 0 !important;  /* 자동 padding-top도 함께 제거됨 */
+}
+```
+
+### 해결 방법: 개별 방향 패딩 제어
+`padding-top`은 Vuetify가 자동 관리하도록 유지하고, 나머지 방향만 초기화:
+
+```css
+/* ✅ 올바른 패턴 */
+.v-main {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-bottom: 0 !important;
+  /* padding-top: Vuetify 자동 계산 유지 (건드리지 않음) */
+}
+```
+
+### 구현 템플릿
+```vue
+<template>
+  <v-app>
+    <v-app-bar height="40" color="#384047">
+      <!-- 헤더 콘텐츠 -->
+    </v-app-bar>
+
+    <v-main>
+      <!-- padding-top이 자동으로 40px 적용됨 -->
+      <div class="page-content">
+        <!-- 페이지 콘텐츠 -->
+      </div>
+    </v-main>
+  </v-app>
+</template>
+
+<style>
+/* v-main 좌우/하단 패딩만 제거 */
+.v-main {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-bottom: 0 !important;
+}
+</style>
+```
+
+### 체크리스트
+- [ ] `v-main`에 `padding: 0` 일괄 적용하지 않았는가?
+- [ ] 페이지 콘텐츠가 헤더 아래에서 정상적으로 시작하는가?
+- [ ] 스크롤 시 콘텐츠가 헤더 뒤로 자연스럽게 지나가는가?
+
 ## Data & Content Fidelity (데이터 충실도)
 
 Figma 원본의 데이터 형식과 값을 정확히 반영해야 함:
