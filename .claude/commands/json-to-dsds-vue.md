@@ -26,13 +26,23 @@ $ARGUMENTS
 ### 1. JSON 파일 분석
 
 #### 1-1. JSON 파일 읽기
-```typescript
-// 대상 JSON 파일
-{ProjectName}_{YYMMDD}_{HHMM}_design/design.json
+
+**필수**: `read_file` 도구를 사용하여 JSON 파일을 읽습니다:
+
+```bash
+# $ARGUMENTS로 전달받은 JSON 파일 경로 사용
+read_file {JSON_파일_경로}
 ```
 
+예시 경로:
+- `C:\path\to\Dashboard_250112_1530_design\design.json`
+- `{ProjectName}_{YYMMDD}_{HHMM}_design/design.json`
+
+**중요**: 파일을 반드시 읽어서 내용을 확인한 후 다음 단계로 진행합니다.
+
 #### 1-2. 핵심 데이터 추출
-다음 섹션을 중점적으로 분석:
+
+읽은 JSON 파일에서 다음 섹션을 중점적으로 분석:
 - `metadata`: 프로젝트 정보
 - `designTokens`: 색상, 타이포그래피, 간격, 그림자
 - `components`: 컴포넌트 계층 구조, 레이아웃, 스타일
@@ -80,9 +90,18 @@ $ARGUMENTS
 | `fontWeight` | `:style="{ fontWeight: ... }"` |
 | `color` | `:style="{ color: '...' }"` |
 
-### 3. App.vue 생성 가이드라인
+### 3. App.vue 생성
 
-#### 3-1. 기본 구조
+**이 단계에서 실제로 `App.vue` 파일을 생성/업데이트합니다.**
+
+#### 3-1. 파일 생성 명령
+
+`write` 도구를 사용하여 다음 경로에 파일을 생성합니다:
+```
+C:\Users\samsung\Repo\dsds-dev\dsds-core\apps\demo-vue\src\App.vue
+```
+
+#### 3-2. 기본 구조
 
 ```vue
 <template>
@@ -126,7 +145,7 @@ const pageTitle = ref('...')
 </style>
 ```
 
-#### 3-2. DSDS 컴포넌트 Import 패턴
+#### 3-3. DSDS 컴포넌트 Import 패턴
 
 **필수 컴포넌트:**
 ```typescript
@@ -152,7 +171,7 @@ import DSDSAutocomplete from '../../../packages/vue/vuetify/src/components/ui/VA
 import DSDSCardText from '../../../packages/vue/vuetify/src/components/ui/VCardText.vue'
 ```
 
-#### 3-3. Props 및 Variant 매핑
+#### 3-4. Props 및 Variant 매핑
 
 **Button (DSDSButton):**
 ```vue
@@ -436,17 +455,25 @@ const renderComponent = (component: Component) => {
 
 ### 생성/업데이트할 파일
 
+**필수**: `write` 도구를 사용하여 다음 파일을 생성/업데이트합니다:
+
+**메인 출력 파일 (필수)**:
 ```
-C:\Users\samsung\Repo\dsds-dev\dsds-core\
-└── apps\
-    └── demo-vue\
-        └── src\
-            ├── App.vue (메인 파일 - 업데이트)
-            └── components\ (필요 시 추가 컴포넌트 생성)
-                ├── CustomTable.vue
-                ├── CustomForm.vue
-                └── ...
+C:\Users\samsung\Repo\dsds-dev\dsds-core\apps\demo-vue\src\App.vue
 ```
+
+**추가 컴포넌트 (선택사항)**:
+```
+C:\Users\samsung\Repo\dsds-dev\dsds-core\apps\demo-vue\src\components\
+├── CustomTable.vue
+├── CustomForm.vue
+└── ...
+```
+
+**중요**: 
+- `App.vue` 파일은 **반드시** 위의 정확한 경로에 생성/업데이트되어야 합니다
+- 기존 `App.vue` 파일이 있으면 덮어씁니다
+- JSON 분석 결과를 기반으로 완전한 Vue SFC (Single File Component) 형식으로 작성합니다
 
 ### App.vue 템플릿 구조
 
@@ -566,6 +593,10 @@ pnpm dev:demo-vue
 ---
 
 **완료 후 확인:**
+- [ ] JSON 파일을 `read_file`로 읽어서 분석했는가?
+- [ ] `C:\Users\samsung\Repo\dsds-dev\dsds-core\apps\demo-vue\src\App.vue` 파일이 생성/업데이트 되었는가?
+- [ ] App.vue가 완전한 Vue SFC 형식(template, script, style)인가?
+- [ ] JSON의 컴포넌트들이 DSDS 컴포넌트로 올바르게 매핑되었는가?
 - [ ] `pnpm dev:demo-vue` 실행 성공
 - [ ] 브라우저에서 모든 컴포넌트 정상 렌더링
 - [ ] DSDS 스타일이 올바르게 적용됨
