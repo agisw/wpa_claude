@@ -1,323 +1,266 @@
 # Figma Design to JSON Structure
 
-Figma 디자인을 분석하여 웹 프로젝트 시안을 **구조화된 JSON 형태**로 변환합니다.
+Figma 디자인을 분석하여 **DSDS Vue 컴포넌트 생성에 필요한 핵심 정보만** 추출합니다.
 
 ## Figma URL
 $ARGUMENTS
 
 ## 목적
 
-Figma Dev Mode에서 디자인 정보를 가져와 다음과 같은 구조화된 데이터를 생성:
-- 컴포넌트 계층 구조
-- 레이아웃 정보 (위치, 크기, 간격)
-- 스타일 속성 (색상, 타이포그래피, 효과)
-- 인터랙션 및 상태 정보
-- 디자인 토큰 및 변수
+Figma Dev Mode에서 **최소한의 필수 정보만** 추출하여 경량화된 JSON 생성:
+- 페이지/섹션 구조 (계층은 최대 2-3단계까지만)
+- 컴포넌트 타입 및 텍스트 내용
+- 기본 디자인 토큰 (색상, 타이포그래피)
+- DSDS 컴포넌트 매핑에 필요한 속성만
+
+**제외 항목**: 세밀한 좌표(x, y), 깊은 중첩 구조, 모든 상태의 세부 스타일, 스크린샷
 
 ## 실행 단계
 
-### 1. Figma 디자인 데이터 수집
+### 0. ⚠️ 간소화 원칙 (최우선)
+
+**JSON 파일 크기를 최소화하는 것이 최우선 목표입니다.**
+
+- 📏 **목표 크기**: 100-500KB
+- 🚫 **최대 크기**: 1MB 이하
+- 🎯 **핵심**: DSDS 컴포넌트 매핑에 필요한 정보만
+
+### 1. Figma 디자인 데이터 수집 (선택적)
 
 #### 1-1. 디자인 컨텍스트 가져오기
 ```
 mcp__figma__get_design_context
 ```
-- Figma 파일의 모든 노드 정보 추출
-- 레이어 계층 구조 파악
-- 컴포넌트 및 인스턴스 관계 분석
+- Figma 파일 정보 추출
+- **주의**: 모든 정보를 추출하되, JSON 생성 시 필터링
 
-#### 1-2. 스크린샷 캡처 (선택사항)
-```
-mcp__figma__get_screenshot
-```
-- 디자인 전체 또는 특정 프레임의 시각적 이미지 캡처
-- 시각적 참조를 위한 이미지 저장
-- 레이아웃 검증용 자료로 활용
-- **참고**: 현재 구현에서는 스크린샷을 생성하지 않음 (MCP 제약으로 인해)
+#### 1-2. 스크린샷 캡처
+- ❌ **제외**: 스크린샷은 생성하지 않음 (불필요)
 
-### 2. 디자인 분석 및 구조화
+### 2. 디자인 분석 (간소화)
 
-다음 항목들을 체계적으로 분석:
+**핵심 정보만 추출** - DSDS 컴포넌트 매핑에 필요한 최소 정보:
 
-#### 2-1. 컴포넌트 계층 구조
-- 페이지/프레임 단위 구조
-- 컴포넌트 중첩 관계
-- 재사용 가능한 컴포넌트 식별
+#### 2-1. 페이지 구조 (최대 2-3단계)
+- 주요 섹션 식별: Header, Main, Footer
+- 각 섹션 내 컴포넌트 그룹
+- **제외**: 깊은 중첩 구조, 세밀한 레이아웃
 
-#### 2-2. 레이아웃 정보
-- Auto Layout 설정 (Flexbox 매핑)
-- 위치 및 크기 (x, y, width, height)
-- 간격 (padding, margin, gap)
-- 정렬 및 배치 방식
+#### 2-2. 컴포넌트 타입 분류
+- **Button**: variant (primary/secondary/outlined), text, size
+- **Input**: type (text/email/select), label, placeholder
+- **Card**: title, description, hasAction
+- **Table**: columns[], hasSort, hasPagination
+- **Form**: fields[], submitButton
+- **Navigation**: logo, links[], actions[]
 
-#### 2-3. 스타일 속성
-- **색상**: Fill, Stroke, Background
-- **타이포그래피**: Font family, size, weight, line-height, letter-spacing
-- **효과**: Shadow, Blur, Border radius
-- **투명도**: Opacity
+#### 2-3. 기본 디자인 토큰 (5가지만)
+- **Primary Color**: 주요 색상 1개
+- **Secondary Color**: 보조 색상 1개
+- **Status Colors**: success, warning, error
+- **Font Family**: 기본 폰트 1개
+- **Base Font Size**: 기본 크기 1개
 
-#### 2-4. 상태 및 인터랙션
-- 버튼 상태 (default, hover, active, disabled)
-- 입력 필드 상태 (empty, filled, error, focused)
-- 토글/스위치 상태
+#### 2-4. 텍스트 내용 추출
+- 버튼 텍스트, 레이블, 플레이스홀더
+- 제목, 설명문
+- **제외**: 본문 전체 내용 (너무 긴 텍스트)
 
-#### 2-5. 디자인 토큰
-- 색상 팔레트 추출
-- 타이포그래피 스케일
-- 간격 시스템 (spacing scale)
-- 그림자/효과 presets
+### 3. 간소화된 JSON 스키마
 
-### 3. JSON 스키마 정의
-
-생성할 JSON은 다음 구조를 따름:
+**DSDS Vue 컴포넌트 생성에 필요한 최소 정보만 포함**:
 
 ```json
 {
   "metadata": {
     "projectName": "string",
-    "figmaFileKey": "string",
-    "figmaNodeId": "string",
-    "extractedAt": "ISO 8601 timestamp",
-    "version": "1.0.0"
+    "figmaUrl": "string",
+    "extractedAt": "ISO 8601 timestamp"
   },
   "designTokens": {
     "colors": {
-      "primary": "#......",
-      "secondary": "#......",
-      "background": {
-        "base": "#......",
-        "surface": "#......"
-      },
-      "text": {
-        "primary": "#......",
-        "secondary": "#......"
-      }
+      "primary": "#4F46E5",
+      "secondary": "#6B7280",
+      "success": "#10B981",
+      "warning": "#F59E0B",
+      "error": "#EF4444"
     },
     "typography": {
-      "fontFamilies": ["string"],
-      "fontSizes": {
-        "xs": "12px",
-        "sm": "14px",
-        "base": "16px",
-        "lg": "18px",
-        "xl": "20px"
-      },
-      "fontWeights": {
-        "regular": 400,
-        "medium": 500,
-        "semibold": 600,
-        "bold": 700
-      },
-      "lineHeights": {
-        "tight": "1.25",
-        "normal": "1.5",
-        "relaxed": "1.75"
-      }
-    },
-    "spacing": {
-      "xs": "4px",
-      "sm": "8px",
-      "md": "16px",
-      "lg": "24px",
-      "xl": "32px"
-    },
-    "borderRadius": {
-      "sm": "4px",
-      "md": "8px",
-      "lg": "12px",
-      "full": "9999px"
-    },
-    "shadows": [
+      "fontFamily": "Inter",
+      "baseFontSize": "16px"
+    }
+  },
+  "layout": {
+    "sections": [
       {
-        "name": "sm",
-        "value": "0 1px 2px 0 rgba(0, 0, 0, 0.05)"
+        "name": "Header",
+        "type": "header",
+        "components": [
+          {
+            "type": "button",
+            "variant": "primary",
+            "text": "Get Started",
+            "action": "navigation"
+          }
+        ]
+      },
+      {
+        "name": "Main Content",
+        "type": "main",
+        "components": [
+          {
+            "type": "card",
+            "title": "Card Title",
+            "description": "Card description",
+            "hasAction": true
+          },
+          {
+            "type": "form",
+            "fields": [
+              {
+                "type": "text-input",
+                "label": "Email",
+                "placeholder": "your@email.com",
+                "required": true
+              },
+              {
+                "type": "button",
+                "variant": "primary",
+                "text": "Submit"
+              }
+            ]
+          }
+        ]
       }
     ]
   },
-  "components": [
-    {
-      "id": "unique-id",
-      "name": "ComponentName",
-      "type": "FRAME | COMPONENT | INSTANCE | TEXT | etc",
-      "category": "layout | button | input | card | navigation | etc",
-      "bounds": {
-        "x": 0,
-        "y": 0,
-        "width": 100,
-        "height": 50
-      },
-      "layout": {
-        "type": "flexbox | absolute | grid",
-        "direction": "horizontal | vertical",
-        "alignment": "start | center | end | stretch",
-        "justifyContent": "start | center | end | space-between",
-        "gap": 8,
-        "padding": {
-          "top": 16,
-          "right": 16,
-          "bottom": 16,
-          "left": 16
-        }
-      },
-      "styles": {
-        "backgroundColor": "#FFFFFF",
-        "borderColor": "#E5E5E5",
-        "borderWidth": 1,
-        "borderRadius": 8,
-        "opacity": 1,
-        "shadows": [],
-        "effects": []
-      },
-      "typography": {
-        "fontFamily": "Inter",
-        "fontSize": 16,
-        "fontWeight": 400,
-        "lineHeight": "24px",
-        "letterSpacing": "0px",
-        "textAlign": "left",
-        "color": "#000000"
-      },
-      "content": {
-        "text": "Button Text",
-        "placeholder": "",
-        "value": ""
-      },
-      "states": [
-        {
-          "name": "default | hover | active | disabled | focused | error",
-          "styles": {
-            "backgroundColor": "#......",
-            "borderColor": "#......"
-          }
-        }
-      ],
-      "children": [
-        {
-          "// nested component structure": "..."
-        }
-      ]
-    }
-  ],
-  "pages": [
-    {
-      "id": "page-id",
-      "name": "PageName",
-      "frames": [
-        {
-          "id": "frame-id",
-          "name": "FrameName",
-          "type": "desktop | mobile | tablet",
-          "width": 1440,
-          "height": 1024,
-          "componentIds": ["comp-1", "comp-2"]
-        }
-      ]
-    }
-  ],
-  "assets": {
-    "screenshots": [
+  "components": {
+    "buttons": [
       {
-        "nodeId": "string",
-        "nodeName": "string",
-        "url": "path/to/screenshot.png",
-        "width": 1440,
-        "height": 1024
+        "variant": "primary | secondary | outlined",
+        "text": "Button Text",
+        "size": "small | medium | large"
       }
     ],
-    "images": [],
-    "icons": []
+    "inputs": [
+      {
+        "type": "text | email | password | select",
+        "label": "Field Label",
+        "placeholder": "Placeholder text"
+      }
+    ],
+    "cards": [
+      {
+        "title": "Card Title",
+        "description": "Card description",
+        "actions": ["Action 1", "Action 2"]
+      }
+    ]
   }
 }
 ```
 
-### 4. 파일 출력
+**제외된 항목**:
+- ❌ `x, y, width, height` (정확한 좌표 불필요)
+- ❌ 깊은 `children` 중첩 구조 (평탄화)
+- ❌ 모든 `states`의 세부 스타일 (variant만 사용)
+- ❌ `shadows`, `effects`, `letterSpacing` 등 세부 속성
+- ❌ `assets`, `screenshots` (이미지 제외)
 
-#### 4-1. JSON 파일 생성
-```
-{ProjectName}_{YYMMDD}_{HHMM}_design.json
-{ProjectName}_{YYMMDD}_{HHMM}_design-tokens.json
-```
+### 4. 파일 출력 (간소화)
 
-#### 4-2. 유틸리티 스크립트 생성
+#### 4-1. 단일 JSON 파일만 생성
 ```
-generate-css-variables.js    # CSS 변수 생성기
-generate-tailwind-config.js  # Tailwind 설정 생성기
-```
-
-#### 4-3. README 생성
-프로젝트 정보 및 JSON 구조 설명을 포함한 README.md 파일 생성
-
-### 5. 출력 디렉토리 구조
-
-```
-{ProjectName}_{YYMMDD}_{HHMM}_design/
-├── design.json                    # 메인 디자인 구조 JSON
-├── design-tokens.json             # 분리된 디자인 토큰
-├── generate-css-variables.js      # CSS 변수 생성 스크립트
-├── generate-tailwind-config.js    # Tailwind 설정 생성 스크립트
-├── README.md                      # 프로젝트 설명서
-└── USAGE.md                       # 사용 가이드
+{ProjectName}_{YYMMDD}_{HHMM}/
+└── design.json    # 간소화된 단일 JSON 파일 (모든 정보 포함)
 ```
 
-## 분석 가이드라인
+**제외**:
+- ❌ design-tokens.json (분리하지 않음, design.json에 통합)
+- ❌ generate-css-variables.js (불필요)
+- ❌ generate-tailwind-config.js (불필요)
+- ❌ README.md, USAGE.md (문서화 불필요)
 
-### 우선순위
+#### 4-2. 파일 크기 목표
+- **목표**: 100-500KB
+- **최대**: 1MB 이하
+- 1MB 초과 시 → 더 간소화 필요
 
-1. **Layout First**: 레이아웃 구조를 먼저 파악 (Grid, Flexbox 패턴)
-2. **Component Identification**: 재사용 가능한 컴포넌트 식별
-3. **Design System**: 일관된 디자인 토큰 추출
-4. **Interaction States**: 다양한 상태 변화 캡처
+## 간소화 가이드라인
 
-### 컴포넌트 분류 기준
+### 추출 원칙
 
-- **Layout**: Header, Footer, Sidebar, Container, Grid
-- **Navigation**: Navbar, Tabs, Breadcrumb, Pagination
-- **Input**: Button, Input, Select, Checkbox, Radio, Toggle
-- **Display**: Card, Table, List, Avatar, Badge, Tag
-- **Feedback**: Alert, Toast, Modal, Tooltip, Progress
-- **Typography**: Heading, Paragraph, Label, Caption
+1. **섹션 중심**: 페이지를 Header/Main/Footer 등 큰 섹션으로 나눔
+2. **컴포넌트 타입만**: 정확한 크기/위치 대신 타입과 variant만
+3. **텍스트 내용**: 실제 표시될 텍스트만 추출
+4. **최소 토큰**: 색상 5개, 폰트 1개만
 
-### 상태 감지 전략
+### 필수 컴포넌트만 추출
 
-Figma 컴포넌트의 Variants를 분석하여 다음 상태 추출:
-- `Default`: 기본 상태
-- `Hover`: 마우스 오버 상태
-- `Active/Pressed`: 클릭/활성 상태
-- `Disabled`: 비활성 상태
-- `Focused`: 포커스 상태
-- `Error`: 에러 상태
+**포함**:
+- ✅ Button (variant, text, size)
+- ✅ Input (type, label, placeholder)
+- ✅ Card (title, description)
+- ✅ Table (기본 구조만)
+- ✅ Form (fields 배열)
+- ✅ Navigation (links 배열)
+
+**제외**:
+- ❌ Avatar, Badge, Tag (DSDS에 없는 컴포넌트)
+- ❌ Tooltip, Progress (복잡한 인터랙션)
+- ❌ Typography 세부 속성
+- ❌ 모든 상태(state)의 스타일 세부사항
+
+### 데이터 평탄화
+
+- 중첩을 최대 2-3단계로 제한
+- `sections > components` 구조 사용
+- 깊은 `children` 구조 피하기
 
 ## 검증 체크리스트
 
-생성된 JSON이 다음 조건을 만족하는지 확인:
+**간소화된 JSON 검증** - 필수 항목만 확인:
 
-- [ ] 모든 Figma 노드가 JSON에 매핑되었는가?
-- [ ] 컴포넌트 계층 구조가 정확히 반영되었는가?
-- [ ] 레이아웃 정보(위치, 크기, 간격)가 정확한가?
-- [ ] 색상 코드가 정확히 추출되었는가? (HEX, RGB, RGBA)
-- [ ] 타이포그래피 정보가 완전한가? (font, size, weight, line-height)
-- [ ] 디자인 토큰이 중복 없이 추출되었는가?
-- [ ] 컴포넌트 상태(variants)가 모두 포함되었는가?
-- [ ] 스크린샷이 정상적으로 저장되었는가?
-- [ ] JSON이 valid한 형식인가? (JSON validator 통과)
+- [ ] 주요 섹션(Header/Main/Footer)이 식별되었는가?
+- [ ] 각 섹션의 컴포넌트 타입이 명확한가?
+- [ ] 버튼, 입력 필드의 텍스트 내용이 추출되었는가?
+- [ ] 5가지 기본 색상이 추출되었는가?
+- [ ] JSON 파일 크기가 500KB 이하인가? (너무 크면 간소화 필요)
+- [ ] JSON이 valid한 형식인가?
+- [ ] DSDS 컴포넌트로 매핑 가능한 구조인가?
 
 ## 활용 방안
 
-생성된 JSON 구조는 다음과 같은 용도로 활용 가능:
+간소화된 JSON은 다음 용도로 활용:
 
-1. **자동 코드 생성**: React/Vue 컴포넌트 자동 생성의 입력 데이터
-2. **디자인 시스템 문서화**: Storybook, Figma 플러그인 연동
-3. **디자인-개발 싱크**: 디자인 변경 사항 추적 및 diff 비교
-4. **테스트 자동화**: Visual regression testing 기준 데이터
-5. **프로토타이핑**: 저코드/노코드 도구의 입력 소스
+1. **DSDS Vue 컴포넌트 생성**: `json-to-dsds-vue` 명령의 입력 데이터
+2. **빠른 프로토타이핑**: 경량 구조로 빠른 처리
+3. **디자인-개발 브리지**: 개발자가 이해하기 쉬운 구조
+
+**제외된 용도**:
+- ❌ 픽셀 퍼펙트 구현 (정확한 좌표/크기 없음)
+- ❌ 디자인 시스템 문서화 (세부 정보 부족)
+- ❌ Visual regression testing (스크린샷 없음)
 
 ## 주의사항
 
-1. **대용량 파일**: Figma 파일이 크면 분석 시간이 오래 걸릴 수 있음
-2. **네이밍 일관성**: Figma 레이어명이 명확해야 정확한 분석 가능
-3. **컴포넌트화**: Figma에서 Component로 만들어진 요소가 재사용성 높음
-4. **상태 표현**: Variants를 활용해야 다양한 상태 추출 가능
-5. **Auto Layout**: Auto Layout이 적용된 프레임이 레이아웃 구조 파악에 유리
+### 간소화 우선순위
+
+1. **파일 크기 제한**: JSON이 1MB를 초과하면 안 됨
+2. **평탄한 구조**: 중첩을 최대 2-3단계로 제한
+3. **타입 중심**: 세부 스타일 대신 컴포넌트 타입과 variant만
+4. **텍스트 우선**: 좌표/크기보다 실제 표시될 텍스트 내용 추출
+5. **DSDS 매핑 가능성**: DSDS에 없는 컴포넌트는 제외
+
+### 불필요한 정보 제외
+
+- ❌ 정확한 x, y 좌표
+- ❌ width, height의 픽셀 단위
+- ❌ padding, margin의 세부값
+- ❌ shadows, effects의 세부 속성
+- ❌ 모든 상태(state)의 스타일
+- ❌ letterSpacing, lineHeight 등 타이포그래피 세부사항
+- ❌ 이미지, 아이콘, 스크린샷
 
 ## 실행 예시
 
@@ -329,14 +272,26 @@ Figma 컴포넌트의 Variants를 분석하여 다음 상태 추출:
 /figma-to-json https://www.figma.com/design/...
 ```
 
-생성 결과:
+생성 결과 (간소화):
 ```
-Dashboard_250107_1530_design/
-├── design.json (생성됨)
-├── design-tokens.json (생성됨)
-├── generate-css-variables.js (생성됨)
-├── generate-tailwind-config.js (생성됨)
-├── README.md (생성됨)
-└── USAGE.md (생성됨)
+Dashboard_250112_2000/
+└── design.json (100-500KB, 간소화된 단일 파일)
 ```
+
+**크기 확인**:
+- ✅ 500KB 이하 → 성공
+- ⚠️ 500KB-1MB → 경고 (더 간소화 권장)
+- ❌ 1MB 초과 → 실패 (반드시 간소화 필요)
+
+## 간소화 체크포인트
+
+JSON 생성 후 반드시 확인:
+
+1. **파일 크기** 확인 (1MB 이하여야 함)
+2. **섹션 구조** 단순한가? (Header/Main/Footer)
+3. **컴포넌트 타입** 명확한가? (button, input, card 등)
+4. **좌표 정보** 제거되었는가? (x, y, width, height)
+5. **텍스트 내용** 추출되었는가?
+
+크기가 너무 크면 → 불필요한 정보를 더 제거하고 재생성
 
